@@ -7,7 +7,7 @@
     $scope.models = {
         searching: false
     };
-    $scope.states = ["AK", "ID", "MT", "ND", "WA", "SD"];
+    $scope.states = getStates();
     $scope.searchByCity = function () {
         //var result = ProductFactory($scope.searchForm.searchState, $scope.searchForm.searchCity);
         $scope.searching = true;
@@ -38,7 +38,16 @@
     //$scope.navbarProperties = {
     //    isCollapsed: true
     //};
+    function getStates() {
+        $http.get('api/search/getstates')
+            .success(function (data, status, headers, config) {
+                return data;
+            })
+            .error(function (data, status, headers, config) {
+                alert("Oops... something went wrong");
+            });
+    };
 }
 
 // The inject property of every controller (and pretty much every other type of object in Angular) needs to be a string array equal to the controllers arguments, only as strings
-CitySearchController.$inject = ['$scope'];
+CitySearchController.$inject = ['$scope', '$http'];
