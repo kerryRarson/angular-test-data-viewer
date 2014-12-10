@@ -60,13 +60,13 @@ namespace OPI.HHS.Core
                          City = a.City,
                          State = a.State,
                          Zip = a.PostalCode,
-                         Case = a.CaseNumber,
-                         Referral = a.Referral,
+                         //Case = a.CaseNumber,
+                         //Referral = a.Referral,
                          Lat = a.Location.Latitude.ToString(),
                          Lon = a.Location.Longitude.ToString()
                      })
                      .Distinct()
-                     .Where(a => a.City == city && a.State == state)
+                     .Where(a => a.City.Contains( city) && a.State == state)
                      .OrderBy(a => a.Zip).ThenBy(a => a.Line1).ToList<AddressSearchResult>();
             }
             return rtn;

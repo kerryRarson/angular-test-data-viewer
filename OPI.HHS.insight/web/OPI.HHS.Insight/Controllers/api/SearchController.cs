@@ -16,17 +16,22 @@ namespace OPI.HHS.Insight.Controllers.api
         [Route("api/search/getstates")]
         public IEnumerable<string> GetStates()
         {
-
             List<string> rtn = new List<string>();
             var svc = new HHSService();
             rtn = svc.GetStates().ToList();
             return rtn;
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        // GET api/search?state=xx&?city=yyy
+        [HttpGet]
+        [Route("api/search/bycity")]
+        //[CacheOutput(ClientTimeSpan = 600, ServerTimeSpan = 600)]
+        public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCity(string st, string city)
         {
-            return "value";
+            System.Diagnostics.Debug.WriteLine("searching for {0}, {1}...", city, st);
+            var svc = new HHSService();
+            var rtn = svc.SearchByCityState(city, st);
+            return rtn;
         }
 
         // POST api/<controller>

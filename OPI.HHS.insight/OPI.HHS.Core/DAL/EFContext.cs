@@ -15,6 +15,8 @@ namespace OPI.HHS.Core.DAL
         public EFContext()
             : base("Name=EFContext")
         {
+            //set the sql command timeout to 2 minutes
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
         }
 
         public DbSet<HHS_Addresses> HHS_Addresses { get; set; }

@@ -1,23 +1,26 @@
 ﻿var CitySearchController = function ($scope, $http) {
-    $scope.searchForm = {
-        searchState: 'MT',
-        searchCity: '',
-        searchResults: []
-    };
+    //$scope.searchForm = {
+    //    searchState: '',
+    //    searchCity: '',
+    //    searchResults: []
+    //};
     $scope.models = {
-        searching: false
+        searching: false,
+        searchState: '',
+        searchCity: '',
+        searchResults: [],
+        states: []
     };
-    $scope.states = getStates();
+    //$scope.states = [];
     $scope.searchByCity = function () {
-        //var result = ProductFactory($scope.searchForm.searchState, $scope.searchForm.searchCity);
         $scope.searching = true;
-        $http.get('/api/search/bycity?state=' + $scope.searchForm.searchState + '&city=' + $scope.searchForm.searchCity)
+        $http.get('/api/search/bycity?st=' + $scope.searchState + '&city=' + $scope.searchCity)
             .success(function (data, status, headers, config) {
-                debugger;//KLL
                 $scope.searchResults = data;
                 $scope.searching = false;
             }
             ).error(function (data, status, headers, config) {
+                debugger;
                 alert("Oops... something went wrong");
                 $scope.searching = false;
             });
@@ -35,18 +38,22 @@
         //	}
         //	$scope.searching = false;
     };
-    //$scope.navbarProperties = {
-    //    isCollapsed: true
-    //};
+
     function getStates() {
         $http.get('api/search/getstates')
             .success(function (data, status, headers, config) {
-                return data;
+                $scope.states = data;
+                $scope.searchState = 'MT';
             })
             .error(function (data, status, headers, config) {
                 alert("Oops... something went wrong");
             });
     };
+    function init() {
+        //populate the state dropdown
+        getStates();
+    }
+    init();
 }
 
 // The inject property of every controller (and pretty much every other type of object in Angular) needs to be a string array equal to the controllers arguments, only as strings
