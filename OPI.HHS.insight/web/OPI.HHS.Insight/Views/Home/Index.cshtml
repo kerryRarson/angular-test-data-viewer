@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html ng-app="demoApp" ng-controller="LandingPageController">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - OPI HHS  Insight</title>
+    @Styles.Render("~/Content/css")
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular-route.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="~/Content/images/logo-opi.png" />
+                @Html.ActionLink("OPI - HHS Insight", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/#/citySearch">By City/State</a></li>
+                            <li><a href="/#/caseSearch">By Case</a></li>
+                            <li><a href="/#/nameSearch">By Name</a></li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("HHS Lookup", "index", "hhsaddress")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/#/reportHome">Reports Home</a></li>
+                            <li><a href="/#/reportByCity">By City</a></li>
+                            <li><a href="/#/caseExtract">Extract by Case Number</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="/#/login">Login</a></li>
+                    @*<li><a href="/#/register">Register</a></li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-1">
+                Search State: '{{ models.searchState }}'
+            </div>
+        </div>
+        <div ng-view></div>
+    </div>
+
+
+
+    <div class="container body-content">
+        <hr />
+        <footer>
+            <p>&copy; 2014 - OPI HHS Insight</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/demoApp")
+
+</body>
+</html>
