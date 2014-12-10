@@ -1,2 +1,42 @@
-﻿
-<div class="jumbotron">This is the search by Name!</div>
+﻿<div class="container">
+    <div class="form-group">
+        <form name="searchForm" ng-submit="searchByName()">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" placeholder="Name" ng-model="searchForm.searchName" ng-bind="searchForm.searchName" required class="form-control" />
+                </div>
+                <div class="col-xs-2">
+                    <button type="submit" class="btn">Search</button>
+                </div>
+                <div class="col-xs-3">
+                    <div ng-show="searching"><img src="~/Content/images/ajax-loader-6-1.gif" />&nbsp; Searching...</div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-lg-1">
+            <p></p>
+            <table class="table table-striped table-condensed">
+                <tr>
+                    <th>Address 1</th>
+                    <th>Address 2</th>
+                    <th>City</th>
+                    <th>St</th>
+                    <th>Zip</th>
+                    <th>Map</th>
+                </tr>
+                <tbody>
+                    <tr data-ng-repeat="r in searchResults">
+                        <td>{{ r.address1 }}</td>
+                        <td>{{ r.address2 }}</td>
+                        <td>{{ r.city }}</td>
+                        <td>{{ r.state }}</td>
+                        <td>{{ r.zip }}</td>
+                        <td>{{ r.lat }} -  {{r.lon}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,9 @@
 ﻿var demoApp = angular.module('demoApp', ['ngRoute', 'ui.bootstrap']);
 
 demoApp.controller('LandingPageController', LandingPageController);
+demoApp.controller('CitySearchController', CitySearchController);
+demoApp.controller('CaseSearchController', CaseSearchController);
+demoApp.controller('NameSearchController', NameSearchController);
 //demoApp.controller('LoginController', LoginController);
 //demoApp.controller('RegisterController', RegisterController);
 
@@ -11,16 +14,19 @@ demoApp.controller('LandingPageController', LandingPageController);
 var configFunction = function ($routeProvider, $httpProvider) {
     $routeProvider.
         when('/citySearch', {
-            templateUrl: 'search/searchbycity'
+            templateUrl: 'search/searchbycity',
+            controller: CitySearchController
         })
         .when('/routeTwo/:donuts', {
             templateUrl: function (params) { return '/routesDemo/two?donuts=' + params.donuts; }
         })
         .when('/caseSearch', {
-            templateUrl: 'search/searchbycase'
+            templateUrl: 'search/searchbycase',
+            controller: CaseSearchController
         })
         .when('/nameSearch', {
-            templateUrl: 'search/searchbyname'
+            templateUrl: 'search/searchbyname',
+            controller: NameSearchController
         })
         //.when('/routeThree', {
         //    templateUrl: 'routesDemo/three'
