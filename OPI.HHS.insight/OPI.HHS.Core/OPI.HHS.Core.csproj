@@ -69,6 +69,7 @@
     <Compile Include="Models\Mapping\TeamMap.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerBio.cs" />
+    <Compile Include="Models\ReferralSearchResult.cs" />
     <Compile Include="Models\School.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamHistory.cs" />

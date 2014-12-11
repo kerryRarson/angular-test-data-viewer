@@ -34,19 +34,22 @@ namespace OPI.HHS.Insight.Controllers.api
             return rtn;
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        [HttpGet]
+        [Route("api/search/bycase")]
+        public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCaseNumber(string caseNumber)
         {
+            var svc = new HHSService();
+            int num;
+            int.TryParse(caseNumber, out num);
+            return svc.SearchByCase(num);
         }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        
+        [HttpGet]
+        [Route("api/search/byname")]
+        public IEnumerable<ReferralSearchResult> SearchByName(string lastName)
         {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            var svc = new HHSService();
+            return svc.SearchByName(lastName);
         }
     }
 }

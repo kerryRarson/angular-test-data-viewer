@@ -1,9 +1,4 @@
 ﻿var CitySearchController = function ($scope, $http) {
-    //$scope.searchForm = {
-    //    searchState: '',
-    //    searchCity: '',
-    //    searchResults: []
-    //};
     $scope.models = {
         searching: false,
         searchState: '',
@@ -11,7 +6,6 @@
         searchResults: [],
         states: []
     };
-    //$scope.states = [];
     $scope.searchByCity = function () {
         $scope.searching = true;
         $http.get('/api/search/bycity?st=' + $scope.searchState + '&city=' + $scope.searchCity)
@@ -24,19 +18,10 @@
                 alert("Oops... something went wrong");
                 $scope.searching = false;
             });
-
-        //result.then(function (result) {
-        //	if (result.success) {
-        //		if ($scope.productForm.returnUrl !== undefined) {
-        //			$location.path('/routeOne');
-        //		} else {
-        //			$location.path($scope.productForm.returnUrl);
-        //		}
-        //	} else {
-        //		$scope.productForm.ReturnCount = 0;
-        //		$scope.productForm.ResultMessage = "Something bad happened.";
-        //	}
-        //	$scope.searching = false;
+    };
+    $scope.buildPeopleUrl = function (caseNum){
+        var returnUrl = '#/peopleByAddr/' + caseNum;
+        return returnUrl;
     };
 
     function getStates() {

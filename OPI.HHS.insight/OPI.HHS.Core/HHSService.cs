@@ -10,6 +10,31 @@ namespace OPI.HHS.Core
     public class HHSService
     {
         /// <summary>
+        /// Searches by LastName.
+        /// </summary>
+        /// <param name="lastName">The last name.</param>
+        /// <returns>distinct addresses</returns>
+        public IEnumerable<ReferralSearchResult> SearchByName(string lastName)
+        {
+            var rtn = new List<ReferralSearchResult>();
+            using (var ctx = new DAL.EFContext())
+            {
+                var sqlQuery = string.Format(@"SELECT DISTINCT r.Id as 'ReferralId'
+	                        ,r.Source
+	                        ,r.LastName, r.FirstName, r.MiddleName
+	                        ,r.Gender
+	                        ,r.Race
+	                        ,r.Ethnicity
+	                        ,r.DOBText as 'DOB'
+                        from HHS_Referrals r
+                        where r.LastName like '{0}%'
+                        order by r.LastName, r.FirstName", lastName);
+
+                rtn = ctx.Database.SqlQuery<ReferralSearchResult>(sqlQuery).ToList();
+            }
+            return rtn;
+        }
+        /// <summary>
         /// Searches by HHS Case number.
         /// </summary>
         /// <param name="caseNumber">The case number.</param>
@@ -55,6 +80,7 @@ namespace OPI.HHS.Core
                      .AsNoTracking()
                      .Select(a => new AddressSearchResult
                      {
+                         Case = a.CaseNumber,
                          Line1 = a.Line1,
                          Line2 = a.Line2,
                          City = a.City,
