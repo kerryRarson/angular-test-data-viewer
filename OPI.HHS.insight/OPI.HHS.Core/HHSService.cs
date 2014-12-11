@@ -129,7 +129,7 @@ namespace OPI.HHS.Core
         public string GetCountyByCase(string caseNumber)
         {
             int iCase = int.Parse(caseNumber);
-            int? rtn;
+            int? rtn = null;
             using (var ctx = new DAL.EFContext())
             {
                 var cases = ctx.HHS_Case
@@ -137,9 +137,9 @@ namespace OPI.HHS.Core
                     .Distinct()
                     .Where(c => c.CaseNumber == iCase)
                     .ToList();
-                rtn = cases.First().County;
+                if (cases.Count > 0) rtn = cases.First().County;
             }
-            return rtn.ToString();
+            return rtn == null ? string.Empty : rtn.ToString();
         }
         public IEnumerable<LookupModel> SearchCities(string state, string city)
         {
