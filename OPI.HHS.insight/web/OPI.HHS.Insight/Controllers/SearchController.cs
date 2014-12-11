@@ -25,15 +25,10 @@ namespace OPI.HHS.Insight.Controllers
         {
             return View();
         }
-        public ActionResult PeopleByAddress(string caseNum)
+        public ActionResult CaseDetail(string caseNum)
         {
             ViewBag.CaseNumber = caseNum;
-            ViewBag.Line1 = "123 Street";
-            //ViewBag.Line2 = line2;
-            //ViewBag.City = city;
-            //ViewBag.State = st;
-            //ViewBag.Zip = zip;
-
+            
             return View();
         }
     }

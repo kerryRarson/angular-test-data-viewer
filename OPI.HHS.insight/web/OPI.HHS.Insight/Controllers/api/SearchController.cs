@@ -51,5 +51,13 @@ namespace OPI.HHS.Insight.Controllers.api
             var svc = new HHSService();
             return svc.SearchByName(lastName);
         }
+
+        [HttpGet]
+        [Route("api/search/countybycase")]
+        public string GetCountyByCase(string caseNum)
+        {
+            var svc = new HHSService();
+            return svc.GetCountyByCase(caseNum);
+        }
     }
 }

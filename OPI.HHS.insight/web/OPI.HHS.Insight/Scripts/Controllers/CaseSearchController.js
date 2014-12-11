@@ -19,7 +19,7 @@
         });
     };
     $scope.buildPeopleUrl = function (caseNum) {
-        var returnUrl = '#/peopleByAddr/' + caseNum;
+        var returnUrl = '#/casedetail/' + caseNum;
         return returnUrl;
     };
 }

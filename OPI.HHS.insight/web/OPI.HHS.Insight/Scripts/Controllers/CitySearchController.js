@@ -19,8 +19,12 @@
                 $scope.searching = false;
             });
     };
+    //$scope.launchMap = function (lat,lon){
+    //    var rtn = "XXX";
+    //    alert('yo');
+    //}
     $scope.buildPeopleUrl = function (caseNum){
-        var returnUrl = '#/peopleByAddr/' + caseNum;
+        var returnUrl = '#/casedetail/' + caseNum;
         return returnUrl;
     };
 

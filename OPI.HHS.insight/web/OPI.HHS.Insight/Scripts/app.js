@@ -4,7 +4,7 @@ demoApp.controller('LandingPageController', LandingPageController);
 demoApp.controller('CitySearchController', CitySearchController);
 demoApp.controller('CaseSearchController', CaseSearchController);
 demoApp.controller('NameSearchController', NameSearchController);
-demoApp.controller('PeopleSearchController', PeopleSearchController);
+demoApp.controller('CaseDetailController', CaseDetailController);
 //demoApp.controller('LoginController', LoginController);
 //demoApp.controller('RegisterController', RegisterController);
 
@@ -18,15 +18,14 @@ var configFunction = function ($routeProvider, $httpProvider) {
             templateUrl: 'search/searchbycity',
             controller: CitySearchController
         })
-        //.when('/peopleByAddr/:line1/:line2/:city/:st/:zip',{
+        //.when('/casedetail/:line1/:line2/:city/:st/:zip',{
         //    templateUrl: function (params) { return '/search/peopleByAddress?line1=' + params.line1 + '&line2=' + params.line2 + '&city=' + params.city + '&st=' + params.st + '&zip=' + params.zip; },
         //    controller: PeopleSearchController
         //})
-        .when('/peopleByAddr/:caseNum',{
-            templateUrl: function (params) { return '/search/peopleByAddress?caseNum=' + params.caseNum ; },
-            controller: PeopleSearchController
+        .when('/casedetail/:caseNum', {
+            templateUrl: function (params) { return '/search/casedetail?caseNum=' + params.caseNum ; },
+            controller: CaseDetailController
         })
-
         .when('/routeTwo/:donuts', {
             templateUrl: function (params) { return '/routesDemo/two?donuts=' + params.donuts; }
         })

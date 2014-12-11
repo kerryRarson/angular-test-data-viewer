@@ -126,6 +126,21 @@ namespace OPI.HHS.Core
             return rtn;
         }
 
+        public string GetCountyByCase(string caseNumber)
+        {
+            int iCase = int.Parse(caseNumber);
+            int? rtn;
+            using (var ctx = new DAL.EFContext())
+            {
+                var cases = ctx.HHS_Case
+                    .AsNoTracking()
+                    .Distinct()
+                    .Where(c => c.CaseNumber == iCase)
+                    .ToList();
+                rtn = cases.First().County;
+            }
+            return rtn.ToString();
+        }
         public IEnumerable<LookupModel> SearchCities(string state, string city)
         {
             var found = new List<LookupModel>();
