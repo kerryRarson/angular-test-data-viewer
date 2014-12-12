@@ -11,6 +11,26 @@ demoApp.controller('CaseDetailController', CaseDetailController);
 //demoApp.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 //demoApp.factory('LoginFactory', LoginFactory);
 //demoApp.factory('RegistrationFactory', RegistrationFactory);
+demoApp.factory('httpInterceptor', function ($q, $rootScope, $log) {
+    var loadingCount = 0;
+
+    return {
+        request: function (config) {
+            if(++loadingCount === 1) $rootScope.$broadcast('loading:progress');
+            return config || $q.when(config);
+        },
+
+        response: function (response) {
+            if(--loadingCount === 0) $rootScope.$broadcast('loading:finish');
+            return response || $q.when(response);
+        },
+
+        responseError: function (response) {
+            if(--loadingCount === 0) $rootScope.$broadcast('loading:finish');
+            return $q.reject(response);
+        }
+    };
+})
 
 var configFunction = function ($routeProvider, $httpProvider) {
     $routeProvider.
@@ -48,7 +68,7 @@ var configFunction = function ($routeProvider, $httpProvider) {
         //    templateUrl: '/Account/Register',
         //    controller: RegisterController
         //});
-
+    $httpProvider.interceptors.push('httpInterceptor');
     //$httpProvider.interceptors.push('AuthHttpResponseInterceptor');
 }
 configFunction.$inject = ['$routeProvider', '$httpProvider'];
