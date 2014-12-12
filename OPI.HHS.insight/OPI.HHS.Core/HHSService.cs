@@ -47,10 +47,12 @@ namespace OPI.HHS.Core
 	                        ,p.Race
 	                        ,p.Ethnicity
 	                        ,convert(varchar(10), p.DOB, 127) as 'DOB'
+                            ,r.Referral
+							,case r.relationshipcode when 'PI' then 'Primary' else r.RelationshipCode end as 'RelationshipCode'
                         from HHS_parent p
                         inner join hhs_relationships r on p.id = r.relationshipid
                         where r.casenumber = {0}
-                        order by r.LastName, r.FirstName", caseNum);
+                        order by p.LastName, p.FirstName", caseNum);
 
                 rtn = ctx.Database.SqlQuery<Relationship>(sqlQuery).ToList();
             }
