@@ -10,6 +10,53 @@ namespace OPI.HHS.Core
     public class HHSService
     {
         /// <summary>
+        /// Gets the referrals by case.
+        /// </summary>
+        /// <param name="caseNum">The case number.</param>
+        /// <returns></returns>
+        public IEnumerable<ReferralSearchResult> GetReferralsByCase(string caseNum)
+        {
+            var rtn = new List<ReferralSearchResult>();
+            using (var ctx = new DAL.EFContext())
+            {
+                var sqlQuery = string.Format(@"SELECT DISTINCT r.Id as 'ReferralId'
+	                        ,r.Source
+	                        ,r.LastName, r.FirstName, r.MiddleName
+	                        ,r.Gender
+	                        ,r.Race
+	                        ,r.Ethnicity
+	                        ,r.DOBText as 'DOB'
+                        from HHS_Referrals r
+                        inner join hhs_case c on r.id = c.referralid
+                        where c.casenumber = {0}
+                        order by r.LastName, r.FirstName", caseNum);
+
+                rtn = ctx.Database.SqlQuery<ReferralSearchResult>(sqlQuery).ToList();
+            }
+            return rtn;
+        }
+
+        public IEnumerable<Relationship> GetParentsByCase(string caseNum){
+            var rtn = new List<Relationship>();
+            using(var ctx = new DAL.EFContext()){
+                var sqlQuery = string.Format(@"SELECT DISTINCT
+                            p.Id
+	                        ,p.Source
+	                        ,p.LastName, P.FirstName, p.MiddleName
+	                        ,p.Gender
+	                        ,p.Race
+	                        ,p.Ethnicity
+	                        ,convert(varchar(10), p.DOB, 127) as 'DOB'
+                        from HHS_parent p
+                        inner join hhs_relationships r on p.id = r.relationshipid
+                        where r.casenumber = {0}
+                        order by r.LastName, r.FirstName", caseNum);
+
+                rtn = ctx.Database.SqlQuery<Relationship>(sqlQuery).ToList();
+            }
+            return rtn;
+        }
+        /// <summary>
         /// Searches by LastName.
         /// </summary>
         /// <param name="lastName">The last name.</param>

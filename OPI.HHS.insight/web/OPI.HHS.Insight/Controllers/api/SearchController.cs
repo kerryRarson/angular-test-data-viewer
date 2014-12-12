@@ -59,5 +59,18 @@ namespace OPI.HHS.Insight.Controllers.api
             var svc = new HHSService();
             return svc.GetCountyByCase(caseNum);
         }
+        [HttpGet]
+        [Route("api/search/getreferralsbycase")]
+        public IEnumerable<ReferralSearchResult> GetReferrals(string caseNum)
+        {
+            var svc = new HHSService();
+            return svc.GetReferralsByCase(caseNum);
+        }
+        [HttpGet]
+        [Route("api/search/getparentsbycase")]
+        public IEnumerable<Relationship> GetRelationshipsByCase(string caseNum){
+            var svc = new HHSService();
+            return svc.GetParentsByCase(caseNum);
+        }
     }
 }
