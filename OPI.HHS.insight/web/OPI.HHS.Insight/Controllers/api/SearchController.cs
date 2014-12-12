@@ -74,7 +74,7 @@ namespace OPI.HHS.Insight.Controllers.api
         }
         [HttpGet]
         [Route("api/search/getprogramsbycase")]
-        public IEnumerable<HHS_Programs> GetProgramsByCase(string caseNum)
+        public IEnumerable<Program> GetProgramsByCase(string caseNum)
         {
             var svc = new HHSService();
             return svc.GetProgramsByCase(caseNum);

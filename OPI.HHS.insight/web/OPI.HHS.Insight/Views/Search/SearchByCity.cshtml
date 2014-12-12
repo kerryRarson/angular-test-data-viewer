@@ -1,6 +1,101 @@
-﻿<div class="row">
-    searching by city!
+﻿<div class="container-fluid">
+    <div class="row">
+        @*<div class="col-lg-1">*@
+            @*<p> look at this article: http://weblogs.asp.net/dwahlin/using-an-angularjs-factory-to-interact-with-a-restful-service</p>*@
+            <form name="searchForm" ng-submit="searchByCity()">
+                <fieldset ng-disabled="searching">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <select ng-options="st for st in states" ng-model="searchState" required class="form-control"></select>
+                        </div>
+                        <div class="col-xs-3">
+                            <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control" />
+                        </div>
+                        <div class="col-xs-1">
+                            <button type="submit" class="btn">Search</button>
+                        </div>
+                        <div class="col-xs-4">
+                            <div ng-show="searching"><img src="~/Content/images/ajax-loader-6-1.gif" />&nbsp; Searching...</div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        @*</div>*@
+    </div>
+
+    <div class="row">
+        <div class="col-lg-1">
+            <p></p>
+            <p>{{searchResults.length}} Addresses</p>
+            <table class="table table-striped table-condensed">
+                <tr>
+                    <th>Case #</th>
+                    <th>Address 1</th>
+                    <th>Address 2</th>
+                    <th>City</th>
+                    <th>St</th>
+                    <th>Zip</th>
+                    <th>Lon/Lat</th>
+                </tr>
+                <tbody>
+                    <tr data-ng-repeat="r in searchResults">
+                        <td><a ng-href="{{ buildPeopleUrl(r.Case)}}">{{r.Case}}</a></td>
+                        <td>{{ r.Line1 }}</td>
+                        <td>{{ r.Line2 }}</td>
+                        <td>{{ r.City }}</td>
+                        <td>{{ r.State }}</td>
+                        <td>{{ r.Zip }}</td>
+                        @*<td><a ng-click="{{launchMap(r.Lon, r.Lat)}}">{{r.Lon}}/{{ r.Lat }}</a></td>*@
+                        <td>{{ r.Lon}}/{{r.Lat}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<div class="row">
-    <div class="col-md-1"><select class="form-control"><option>MT</option><option>AR</option></select></div>
-</div>
+
+@*http://stackoverflow.com/questions/15324039/how-to-create-a-url-for-link-helper-in-angularjjs
+
+There are numerous approaches...a custom directive or ng-click to modify $location, or using a function in ng-href to parse the url from object and have it placed as href in an <a>
+    tag.
+
+    Example using ng-href:
+
+    HTML:
+
+    <li ng-repeat="item in items">
+        <a ng-href="{{url(item)}}">{{item.txt}}</a>
+    </li>
+    JS:
+
+    function Ctrl($scope){
+    $scope.items=[
+    {id:1,txt:'foo'},
+    {id:2,txt:'bar'}
+    ];
+
+    $scope.url=function(item){
+    return '#/'+item.id
+    }
+    }
+    Example using ng-click and $location
+
+    HTML:
+
+    <a ng-click="newPath(item)">{{item.txt}}</a>
+    JS:
+
+    function Ctrl($scope){
+    $scope.items=[
+    {id:1,txt:'foo'},
+    {id:2,txt:'bar'}
+    ];
+
+    $scope.newPath=function(item){
+    $location.path('/'+item.id)
+    }
+    }
+    DEMO: http://jsbin.com/ovemaq/3
+
+    share|improve this answer*@
+    

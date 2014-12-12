@@ -1,0 +1,115 @@
+﻿<div class="container" ng-init="init('@ViewBag.CaseNumber')">
+    <div ng-hide="loaded" class="container center-block">
+        <img src="~/Content/images/ajax-loader-6-1.gif" /> Loading...
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="container">
+                <h4><span class="label label-info">Case #</span> <span> {{caseNum}}</span></h4>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="container">
+                <h4><span class="label label-info">County Code</span> <span> {{ county }}</span></h4>
+            </div>
+        </div>
+
+        @*<p>taken from http://www.dematte.org/2014/01/08/MixingAngularJSAndASPNETMVC.aspx</p>*@
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ referrals.length}} Referrals</div>
+            <div class="panel-body">
+                <table class="table table-striped table-condensed">
+                    <tr>
+                        <th>Referral</th>
+                        <th>Name</th>
+                        <th>DOB</th>
+                        <th>Gender</th>
+                        <th>Race</th>
+                        <th>Ethnicity</th>
+                    </tr>
+                    <tr ng-repeat="r in referrals">
+                        <td>{{r.ReferralId}}</td>
+                        <td>{{r.FormattedName}}</td>
+                        <td>{{r.DOB}}</td>
+                        <td>{{r.Gender}}</td>
+                        <td>{{r.Race}}</td>
+                        <td>{{r.Ethnicity}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">Parents</div>
+            <div class="panel-body">
+                <table class="table table-striped table-condensed">
+                    <tr>
+                        <th>Id</th>
+                        <th>Relationship</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th>Race</th>
+                        <th>Ethnicity</th>
+                    </tr>
+                    <tr ng-repeat="p in parents">
+                        <td>{{p.Id}}</td>
+                        <td>{{p.RelationshipCode}}</td>
+                        <td>{{p.FormattedName}}</td>
+                        <td>{{p.Gender}}</td>
+                        <td>{{p.DOB}}</td>
+                        <td>{{p.Race}}</td>
+                        <td>{{p.Ethnicity}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">Programs</div>
+            <div class="panel-body">
+                <table class="table table-striped table-condensed">
+                    <tr>
+                        <th>Program</th>
+                        <th>Referral</th>
+                        <th>Case</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Eligibility</th>
+                    </tr>
+                    <tr ng-repeat="p in programs">
+                        <td>{{p.ProgramCode}}</td>
+                        <td>{{p.Referral}}</td>
+                        <td>{{p.CaseNumber}}</td>
+                        <td>{{p.StartDateText}}</td>
+                        <td>{{p.EndDateText}}</td>
+                        <td>{{p.EligiblityStatusText}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">Addresses</div>
+            <div class="panel-body">
+                <table class="table table-striped table-condensed">
+                    <tr>
+                        <th>Referral</th>
+                        <th>Line 1</th>
+                        <th>Line 2</th>
+                        <th>City</th>
+                        <th>ST</th>
+                        <th>Zip</th>
+                        <th>Type</th>
+                        <th>Phone</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

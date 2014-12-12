@@ -15,16 +15,23 @@ namespace OPI.HHS.Core
         /// </summary>
         /// <param name="caseNum">The case number.</param>
         /// <returns></returns>
-        public IEnumerable<HHS_Programs> GetProgramsByCase(string caseNum) {
-            var rtn = new List<HHS_Programs>();
+        public IEnumerable<Program> GetProgramsByCase(string caseNum) {
+            var rtn = new List<Program>();
             int caseNumber = int.Parse(caseNum);
             using (var ctx = new DAL.EFContext())
             {
                 rtn = ctx.HHS_Programs
                     .AsNoTracking()
+                    .Select(p => new Program { ProgramCode = p.ProgramCode,
+                        StartDate = p.StartDate,
+                        EndDate = p.EndDate,
+                        EligiblityStatus = p.EligiblityStatus,
+                        CaseNumber = p.CaseNumber,
+                        Referral = p.Referral})
                     .Distinct()
                     .Where(p => p.CaseNumber == caseNumber)
                     .OrderByDescending(p => p.StartDate)
+                    .ThenBy(p=>p.EndDate)
                     .ToList();
             }
             return rtn;
