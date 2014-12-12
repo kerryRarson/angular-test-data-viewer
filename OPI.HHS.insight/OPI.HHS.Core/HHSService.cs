@@ -9,6 +9,26 @@ namespace OPI.HHS.Core
 {
     public class HHSService
     {
+
+        /// <summary>
+        /// Gets the programs by case.
+        /// </summary>
+        /// <param name="caseNum">The case number.</param>
+        /// <returns></returns>
+        public IEnumerable<HHS_Programs> GetProgramsByCase(string caseNum) {
+            var rtn = new List<HHS_Programs>();
+            int caseNumber = int.Parse(caseNum);
+            using (var ctx = new DAL.EFContext())
+            {
+                rtn = ctx.HHS_Programs
+                    .AsNoTracking()
+                    .Distinct()
+                    .Where(p => p.CaseNumber == caseNumber)
+                    .OrderByDescending(p => p.StartDate)
+                    .ToList();
+            }
+            return rtn;
+        }
         /// <summary>
         /// Gets the referrals by case.
         /// </summary>
@@ -36,6 +56,11 @@ namespace OPI.HHS.Core
             return rtn;
         }
 
+        /// <summary>
+        /// Gets the parents by case.
+        /// </summary>
+        /// <param name="caseNum">The case number.</param>
+        /// <returns></returns>
         public IEnumerable<Relationship> GetParentsByCase(string caseNum){
             var rtn = new List<Relationship>();
             using(var ctx = new DAL.EFContext()){
@@ -47,7 +72,6 @@ namespace OPI.HHS.Core
 	                        ,p.Race
 	                        ,p.Ethnicity
 	                        ,convert(varchar(10), p.DOB, 127) as 'DOB'
-                            ,r.Referral
 							,case r.relationshipcode when 'PI' then 'Primary' else r.RelationshipCode end as 'RelationshipCode'
                         from HHS_parent p
                         inner join hhs_relationships r on p.id = r.relationshipid

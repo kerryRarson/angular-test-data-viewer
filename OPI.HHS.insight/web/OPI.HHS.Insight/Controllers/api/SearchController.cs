@@ -72,5 +72,12 @@ namespace OPI.HHS.Insight.Controllers.api
             var svc = new HHSService();
             return svc.GetParentsByCase(caseNum);
         }
+        [HttpGet]
+        [Route("api/search/getprogramsbycase")]
+        public IEnumerable<HHS_Programs> GetProgramsByCase(string caseNum)
+        {
+            var svc = new HHSService();
+            return svc.GetProgramsByCase(caseNum);
+        }
     }
 }
