@@ -1,4 +1,4 @@
-﻿var CitySearchController = function ($scope, $http) {
+﻿var CitySearchController = function ($scope, $http, $modal) {
     $scope.models = {
         searching: false,
         searchState: '',
@@ -19,10 +19,6 @@
                 $scope.searching = false;
             });
     };
-    //$scope.launchMap = function (lat,lon){
-    //    var rtn = "XXX";
-    //    alert('yo');
-    //}
     $scope.buildPeopleUrl = function (caseNum){
         var returnUrl = '#/casedetail/' + caseNum;
         return returnUrl;
@@ -43,7 +39,35 @@
         getStates();
     }
     init();
+    //Modal functions
+    $scope.launchMap = function (lat, lon) {
+        alert('lat-' + lat);
+        var modalInstance = $modal.open({
+            templateUrl: 'myModalContent.html'
+            ,size: 'lg'
+            //, controller: 'ModalInstanceCtrl'
+            ,size: 'lg',
+        //    resolve: {
+        //        items: function () {
+        //            return $scope.items;
+        //        }
+        //    }
+        });
+
+        var coords = new google.maps.LatLng(lat, lon);
+        var mapOptions = {
+            zoom: 15,
+            center: coords,
+            mapTypeControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        _map = new google.maps.Map(
+                document.getElementById("mapPlaceholder"), mapOptions
+        );
+    };
 }
 
+
+
 // The inject property of every controller (and pretty much every other type of object in Angular) needs to be a string array equal to the controllers arguments, only as strings
-CitySearchController.$inject = ['$scope', '$http'];
+CitySearchController.$inject = ['$scope', '$http', '$modal'];
