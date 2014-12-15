@@ -7,7 +7,7 @@ using OPI.HHS.Core.Models;
 
 namespace OPI.HHS.Core
 {
-    public class HHSService
+    public class HHSService : IHHSService
     {
 
         /// <summary>
@@ -231,5 +231,6 @@ namespace OPI.HHS.Core
             }
             return found;
         }
+
     }
 }

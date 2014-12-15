@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="DAL\DataProDB.cs" />
     <Compile Include="HHSService.cs" />
+    <Compile Include="IHHSService.cs" />
     <Compile Include="Models\AddressSearchResult.cs" />
     <Compile Include="Models\CurBio.cs" />
     <Compile Include="DAL\EFContext.cs" />
