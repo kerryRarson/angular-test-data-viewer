@@ -12,13 +12,14 @@ namespace OPI.HHS.Insight.Controllers.api
 {
     public class SearchController : ApiController
     {
+        IHHSService _svc;
+        public SearchController(IHHSService svc) { _svc = svc; }
         // GET api/<controller>
         [Route("api/search/getstates")]
         public IEnumerable<string> GetStates()
         {
             List<string> rtn = new List<string>();
-            var svc = new HHSService();
-            rtn = svc.GetStates().ToList();
+            rtn = _svc.GetStates().ToList();
             return rtn;
         }
 
@@ -29,8 +30,8 @@ namespace OPI.HHS.Insight.Controllers.api
         public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCity(string st, string city)
         {
             System.Diagnostics.Debug.WriteLine("searching for {0}, {1}...", city, st);
-            var svc = new HHSService();
-            var rtn = svc.SearchByCityState(city, st);
+            
+            var rtn = _svc.SearchByCityState(city, st);
             return rtn;
         }
 
@@ -38,46 +39,46 @@ namespace OPI.HHS.Insight.Controllers.api
         [Route("api/search/bycase")]
         public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCaseNumber(string caseNumber)
         {
-            var svc = new HHSService();
+            
             int num;
             int.TryParse(caseNumber, out num);
-            return svc.SearchByCase(num);
+            return _svc.SearchByCase(num);
         }
         
         [HttpGet]
         [Route("api/search/byname")]
         public IEnumerable<ReferralSearchResult> SearchByName(string lastName)
         {
-            var svc = new HHSService();
-            return svc.SearchByName(lastName);
+            
+            return _svc.SearchByName(lastName);
         }
 
         [HttpGet]
         [Route("api/search/countybycase")]
         public string GetCountyByCase(string caseNum)
         {
-            var svc = new HHSService();
-            return svc.GetCountyByCase(caseNum);
+            
+            return _svc.GetCountyByCase(caseNum);
         }
         [HttpGet]
         [Route("api/search/getreferralsbycase")]
         public IEnumerable<ReferralSearchResult> GetReferrals(string caseNum)
         {
-            var svc = new HHSService();
-            return svc.GetReferralsByCase(caseNum);
+            
+            return _svc.GetReferralsByCase(caseNum);
         }
         [HttpGet]
         [Route("api/search/getparentsbycase")]
         public IEnumerable<Relationship> GetRelationshipsByCase(string caseNum){
-            var svc = new HHSService();
-            return svc.GetParentsByCase(caseNum);
+            
+            return _svc.GetParentsByCase(caseNum);
         }
         [HttpGet]
         [Route("api/search/getprogramsbycase")]
         public IEnumerable<Program> GetProgramsByCase(string caseNum)
         {
-            var svc = new HHSService();
-            return svc.GetProgramsByCase(caseNum);
+            
+            return _svc.GetProgramsByCase(caseNum);
         }
     }
 }
