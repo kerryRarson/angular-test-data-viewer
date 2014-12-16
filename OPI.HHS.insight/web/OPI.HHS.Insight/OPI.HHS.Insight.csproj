@@ -230,6 +230,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="testMap.html" />
+    <Content Include="Scripts\theDialogPartial.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

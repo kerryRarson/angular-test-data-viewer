@@ -52,6 +52,7 @@
     <Compile Include="HHSService.cs" />
     <Compile Include="IHHSService.cs" />
     <Compile Include="Models\AddressSearchResult.cs" />
+    <Compile Include="Models\County.cs" />
     <Compile Include="Models\CurBio.cs" />
     <Compile Include="DAL\EFContext.cs" />
     <Compile Include="Models\GeoLocation.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Models\HHS_Referrals.cs" />
     <Compile Include="Models\HHS_Relationships.cs" />
     <Compile Include="Models\LookupModel.cs" />
+    <Compile Include="Models\Mapping\CountyMap.cs" />
     <Compile Include="Models\Mapping\HHS_AddressesMap.cs" />
     <Compile Include="Models\Mapping\HHS_CaseMap.cs" />
     <Compile Include="Models\Mapping\HHS_ParentMap.cs" />

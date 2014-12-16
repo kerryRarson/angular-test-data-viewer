@@ -5,6 +5,13 @@ demoApp.controller('CitySearchController', CitySearchController);
 demoApp.controller('CaseSearchController', CaseSearchController);
 demoApp.controller('NameSearchController', NameSearchController);
 demoApp.controller('CaseDetailController', CaseDetailController);
+//TODO refactor this to it's own controller .js
+demoApp.controller('TheDialogController', function ($scope, $modalInstance, aValue) {
+    $scope.valuePassed = aValue;
+    $scope.close = function () {
+        $modalInstance.close("Someone Closed Me");
+    };
+});
 //demoApp.controller('LoginController', LoginController);
 //demoApp.controller('RegisterController', RegisterController);
 

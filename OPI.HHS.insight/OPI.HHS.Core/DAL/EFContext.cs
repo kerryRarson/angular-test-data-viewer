@@ -25,6 +25,7 @@ namespace OPI.HHS.Core.DAL
         public DbSet<HHS_Programs> HHS_Programs { get; set; }
         public DbSet<HHS_Referrals> HHS_Referrals { get; set; }
         public DbSet<HHS_Relationships> HHS_Relationships { get; set; }
+        public DbSet<County> Counties { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Team> Teams { get; set; }
 
@@ -36,6 +37,7 @@ namespace OPI.HHS.Core.DAL
             modelBuilder.Configurations.Add(new HHS_ProgramsMap());
             modelBuilder.Configurations.Add(new HHS_ReferralsMap());
             modelBuilder.Configurations.Add(new HHS_RelationshipsMap());
+            modelBuilder.Configurations.Add(new CountyMap());
             modelBuilder.Configurations.Add(new PlayerMap());
             modelBuilder.Configurations.Add(new TeamMap());
         }

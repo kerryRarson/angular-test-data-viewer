@@ -7,7 +7,7 @@ using OPI.HHS.Core.Models;
 
 namespace OPI.HHS.Core
 {
-    public class HHSService : IHHSService
+    public class HHSService : IHHSService, IDisposable
     {
 
         /// <summary>
@@ -209,17 +209,25 @@ namespace OPI.HHS.Core
         public string GetCountyByCase(string caseNumber)
         {
             int iCase = int.Parse(caseNumber);
-            int? rtn = null;
+            string rtn = null;
             using (var ctx = new DAL.EFContext())
             {
                 var cases = ctx.HHS_Case
                     .AsNoTracking()
                     .Distinct()
                     .Where(c => c.CaseNumber == iCase)
+                    .OrderByDescending( c => c.County)
                     .ToList();
-                if (cases.Count > 0) rtn = cases.First().County;
+                if (cases.Count > 0) {
+                    string countyId = cases.First().County.Value.ToString("00");
+                    var county = ctx.Counties
+                        .AsNoTracking()
+                        .Where(c => c.Co == countyId).FirstOrDefault();
+
+                    rtn = county.Name;
+                }
             }
-            return rtn == null ? string.Empty : rtn.ToString();
+            return rtn == null ? string.Empty : rtn;
         }
         public IEnumerable<LookupModel> SearchCities(string state, string city)
         {
@@ -232,5 +240,10 @@ namespace OPI.HHS.Core
             return found;
         }
 
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
     }
 }

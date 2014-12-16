@@ -41,29 +41,23 @@
     init();
     //Modal functions
     $scope.launchMap = function (lat, lon) {
-        alert('lat-' + lat);
+        // from http://www.kendar.org/?p=/tutorials/angularjs/part03
+        //alert('lat-' + lat);
+        $scope.valueToPass = "I must be passed";
+
         var modalInstance = $modal.open({
-            templateUrl: 'myModalContent.html'
-            ,size: 'lg'
-            //, controller: 'ModalInstanceCtrl'
-            ,size: 'lg',
-        //    resolve: {
-        //        items: function () {
-        //            return $scope.items;
-        //        }
-        //    }
+            templateUrl: '/scripts/theDialogPartial.html',
+            controller: 'TheDialogController',
+            resolve: {
+                aValue: function () {
+                    return $scope.valueToPass;
+                }
+            }
+        });
+        modalInstance.result.then(function (paramFromDialog) {
+            $scope.paramFromDialog = paramFromDialog;
         });
 
-        var coords = new google.maps.LatLng(lat, lon);
-        var mapOptions = {
-            zoom: 15,
-            center: coords,
-            mapTypeControl: true,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        _map = new google.maps.Map(
-                document.getElementById("mapPlaceholder"), mapOptions
-        );
     };
 }
 
