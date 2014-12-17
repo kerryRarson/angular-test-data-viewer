@@ -3,13 +3,13 @@
         <form name="searchForm" ng-submit="searchByName()">
             <fieldset ng-disabled="searching">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-md-3">
                         <input type="text" placeholder="Name" ng-model="searchForm.searchName" ng-bind="searchForm.searchName" required class="form-control" />
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-md-1">
                         <button type="submit" class="btn btn-primary">Search</button>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-md-3">
                         <div ng-show="searching"><img src="~/Content/images/ajax-loader-6-1.gif" />&nbsp; Searching...</div>
                     </div>
                 </div>

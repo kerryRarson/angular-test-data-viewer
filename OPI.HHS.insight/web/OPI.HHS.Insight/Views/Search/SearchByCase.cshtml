@@ -1,51 +1,54 @@
 ﻿<div class="container">
-    <div class="form-group">
-        <form name="searchForm" ng-submit="searchByCase()">
-            <fieldset ng-disabled="searching">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <input type="number" placeholder="HHS Case #" ng-model="searchForm.searchCase" ng-bind="searchForm.searchCase" required class="form-control" />
+    <div class="row">
+        <div class="alert alert-danger" role="alert" ng-show="showAjaxError">{{ajaxError}}</div>
+        <div class="form-group">
+            <form name="searchForm" ng-submit="searchByCase()">
+                <fieldset ng-disabled="searching">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="number" placeholder="HHS Case #" ng-model="searchForm.searchCase" ng-bind="searchForm.searchCase" required class="form-control" />
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                        <div class="col-md-4">
+                            <div ng-show="searching"><img src="~/Content/images/ajax-loader-6-1.gif" />&nbsp; Searching...</div>
+                        </div>
                     </div>
-                    <div class="col-sm-1">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
-                    <div class="col-xs-4">
-                        <div ng-show="searching"><img src="~/Content/images/ajax-loader-6-1.gif" />&nbsp; Searching...</div>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+        </div>
     </div>
-
 
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">{{ searchResults.length}} Addresses</div>
             <div class="panel-body">
-                <table class="table table-striped table-condensed">
-                    <tr>
-                        <th>Case #</th>
-                        <th>Referral</th>
-                        <th>Address 1</th>
-                        <th>Address 2</th>
-                        <th>City</th>
-                        <th>St</th>
-                        <th>Zip</th>
-                        <th>Map</th>
+            <table class="table table-striped table-responsive">
+                <tr>
+                    <th>Case #</th>
+                    <th>Referral</th>
+                    <th>Address 1</th>
+                    <th>Address 2</th>
+                    <th>City</th>
+                    <th>St</th>
+                    <th>Zip</th>
+                    <th>Map</th>
+                </tr>
+                <tbody>
+                    <tr data-ng-repeat="r in searchResults">
+                        <td><a ng-href="{{ buildPeopleUrl(r.Case)}}">{{r.Case}}</a></td>
+                        <td>{{r.Referral}}</td>
+                        <td>{{ r.Line1 }}</td>
+                        <td>{{ r.Line2 }}</td>
+                        <td>{{ r.City }}</td>
+                        <td>{{ r.State }}</td>
+                        <td>{{ r.Zip }}</td>
+                        <td>{{ r.Lon }} {{r.Lat}}</td>
                     </tr>
-                    <tbody>
-                        <tr data-ng-repeat="r in searchResults">
-                            <td><a ng-href="{{ buildPeopleUrl(r.Case)}}">{{r.Case}}</a></td>
-                            <td>{{r.Referral}}</td>
-                            <td>{{ r.Line1 }}</td>
-                            <td>{{ r.Line2 }}</td>
-                            <td>{{ r.City }}</td>
-                            <td>{{ r.State }}</td>
-                            <td>{{ r.Zip }}</td>
-                            <td>{{ r.Lon }} {{r.Lat}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
+            </div>
     </div>
+</div>

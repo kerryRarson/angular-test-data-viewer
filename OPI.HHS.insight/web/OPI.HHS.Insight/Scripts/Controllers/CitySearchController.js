@@ -1,6 +1,8 @@
 ﻿var CitySearchController = function ($scope, $http, $modal) {
     $scope.models = {
         searching: false,
+        showAjaxError: false,
+        ajaxError: '',
         searchState: '',
         searchCity: '',
         searchResults: [],
@@ -9,13 +11,13 @@
     $scope.searchByCity = function () {
         $scope.searching = true;
         $http.get('/api/search/bycity?st=' + $scope.searchState + '&city=' + $scope.searchCity)
-            .success(function (data, status, headers, config) {
+            .success(function (data, status,         headers, config) {
                 $scope.searchResults = data;
                 $scope.searching = false;
             }
             ).error(function (data, status, headers, config) {
-                debugger;
-                alert("Oops... something went wrong");
+                $scope.ajaxError = data;
+                $scope.showAjaxError = true;
                 $scope.searching = false;
             });
     };
@@ -31,7 +33,8 @@
                 $scope.searchState = 'MT';
             })
             .error(function (data, status, headers, config) {
-                alert("Oops... something went wrong");
+                $scope.ajaxError = data;
+                $scope.showAjaxError = true;
             });
     };
     function init() {

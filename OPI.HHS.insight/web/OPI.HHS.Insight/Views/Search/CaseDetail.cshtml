@@ -1,17 +1,17 @@
 ﻿<div class="container" ng-init="init('@ViewBag.CaseNumber')">
-    <div ng-hide="loaded" class="container center-block">
-        <img src="~/Content/images/ajax-loader-6-1.gif" /> Loading...
-    </div>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="container">
                 <h4><span class="label label-warning">Case #</span> <span> {{caseNum}}</span></h4>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="container">
                 <h4><span class="label label-warning">County</span> <span> {{ county }}</span></h4>
             </div>
+        </div>
+        <div ng-hide="loaded" class="col-md-3 container center-block" style="padding-top:8px;">
+            <img src="~/Content/images/ajax-loader-6-1.gif" /> Loading...
         </div>
 
         @*<p>taken from http://www.dematte.org/2014/01/08/MixingAngularJSAndASPNETMVC.aspx</p>*@

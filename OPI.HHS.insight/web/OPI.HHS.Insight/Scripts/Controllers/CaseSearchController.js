@@ -1,6 +1,8 @@
 ﻿var CaseSearchController = function ($scope, $http) {
     $scope.models = {
         searching: false,
+        showAjaxError: false,
+        ajaxError: '',
         searchCase: '',
         searchResults: []
     };
@@ -13,8 +15,8 @@
                 $scope.searching = false;
             }
             ).error(function (data, status, headers, config) {
-                debugger;
-                alert("Oops... something went wrong");
+                $scope.ajaxError = data;
+                $scope.showAjaxError = true;
                 $scope.searching = false;
         });
     };
