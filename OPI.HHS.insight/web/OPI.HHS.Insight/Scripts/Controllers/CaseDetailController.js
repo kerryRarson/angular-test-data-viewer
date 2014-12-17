@@ -1,4 +1,6 @@
 ﻿var CaseDetailController = function ($scope, $http, $rootScope) {
+    $scope.showAjaxError = false,
+    $scope.ajaxError = '',
     $scope.loading = true;
     $scope.loaded = false;
     $scope.caseNum = '';
@@ -27,16 +29,15 @@
 
     }
     function getAddresses(caseNum) {
-        $http.get('api/search/getprogramsbycase?casenum=' + caseNum)
+        $http.get('api/search/getaddrsbycase?casenum=' + caseNum)
             .success(function (data, status, headers, config) {
-                //$scope.addresses = data;
-                //$scope.loading = false;
-                //$scope.loaded = true;
+                $scope.addresses = data;
                 //LOOK AT
                 //http://stackoverflow.com/questions/23361883/angular-js-detect-when-all-http-have-finished
             })
             .error(function (data, status, headers, config) {
-                alert("Oops... something went wrong getting programs.");
+                $scope.ajaxError = data.ExceptionMessage;
+                $scope.showAjaxError = true;
             });
     }
     function getPrograms(caseNum) {
@@ -45,7 +46,8 @@
                 $scope.programs = data;
             })
             .error(function (data, status, headers, config) {
-                alert("Oops... something went wrong getting programs.");
+                $scope.ajaxError = data.ExceptionMessage;
+                $scope.showAjaxError = true;
             });
     }
     function getCounty(caseNum) {
@@ -54,7 +56,8 @@
                 $scope.county = JSON.parse(data);
             })
             .error(function (data, status, headers, config) {
-                alert("Oops... something went wrong");
+                $scope.ajaxError = data.ExceptionMessage;
+                $scope.showAjaxError = true;
             });
     }
     function getReferrals(caseNum) {
@@ -63,7 +66,8 @@
                 $scope.referrals = data;
             })
             .error(function (data, status, headers, config) {
-                alert("Oops... something went wrong");
+                $scope.ajaxError = data.ExceptionMessage;
+                $scope.showAjaxError = true;
             });
     }
     function getParents(caseNum) {
@@ -72,7 +76,8 @@
                 $scope.parents = data;
             })
             .error(function (data, status, headers, config) {
-                alert("Oops... something went wrong");
+                $scope.ajaxError = data.ExceptionMessage;
+                $scope.showAjaxError = true;
             });
     }
     //$scope.$on('$viewContentLoaded', function () {

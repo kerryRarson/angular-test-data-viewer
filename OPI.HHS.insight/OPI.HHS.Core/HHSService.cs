@@ -240,6 +240,42 @@ namespace OPI.HHS.Core
             return found;
         }
 
+        public IEnumerable<AddressSearchResult> GetAddressesByCase(int caseNum)
+        {
+            List<AddressSearchResult> rtn = new List<AddressSearchResult>();
+            using (var ctx = new DAL.EFContext())
+            {
+                rtn = ctx.HHS_Addresses
+                    .AsNoTracking()
+                    .Select(a => new AddressSearchResult
+                    {
+                        Line1 = a.Line1,
+                        Line2 = a.Line2,
+                        City = a.City,
+                        State = a.State,
+                        Zip = a.PostalCode,
+                        Case = a.CaseNumber,
+                        Referral = a.Referral,
+                        Lat = a.Location.Latitude.ToString(),
+                        Lon = a.Location.Longitude.ToString(),
+                        Phone = a.Telephone1,
+                        Type = a.Type
+                    })
+                     .Distinct()
+                     .Where(a => a.Case == caseNum)
+                     .OrderBy(a => a.Zip).ThenBy(a => a.Line1).ToList<AddressSearchResult>();
+            }
+            // != null ? String.Format("{0:(###) ###-####}", a.Telephone1) : string.Empty,
+            //format the phone
+            foreach (var a in rtn)
+            {
+                if (a.Phone != null && a.Phone.Length > 1)
+                {
+                    a.Phone = string.Format("{0:(###) ###-####}", long.Parse(a.Phone));
+                }
+            }
+            return rtn;
+        }
 
         public void Dispose()
         {

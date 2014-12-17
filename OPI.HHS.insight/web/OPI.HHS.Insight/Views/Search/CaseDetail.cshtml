@@ -1,5 +1,6 @@
 ﻿<div class="container" ng-init="init('@ViewBag.CaseNumber')">
     <div class="row">
+        <div class="alert alert-danger" role="alert" ng-show="showAjaxError">{{ajaxError}}</div>
         <div class="col-md-3">
             <div class="container">
                 <h4><span class="label label-warning">Case #</span> <span> {{caseNum}}</span></h4>
@@ -107,6 +108,16 @@
                         <th>Zip</th>
                         <th>Type</th>
                         <th>Phone</th>
+                    </tr>
+                    <tr ng-repeat="a in addresses">
+                        <td>{{a.Referral}}</td>
+                        <td>{{a.Line1}}</td>
+                        <td>{{a.Line2}}</td>
+                        <td>{{a.City}}</td>
+                        <td>{{a.State}}</td>
+                        <td>{{a.Zip}}</td>
+                        <td>{{a.Type}}</td>
+                        <td>{{a.Phone}}</td>
                     </tr>
                 </table>
             </div>

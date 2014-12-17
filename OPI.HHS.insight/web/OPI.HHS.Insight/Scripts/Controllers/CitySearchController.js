@@ -16,7 +16,7 @@
                 $scope.searching = false;
             }
             ).error(function (data, status, headers, config) {
-                $scope.ajaxError = data;
+                $scope.ajaxError = data.ExceptionMessage;
                 $scope.showAjaxError = true;
                 $scope.searching = false;
             });
@@ -33,7 +33,7 @@
                 $scope.searchState = 'MT';
             })
             .error(function (data, status, headers, config) {
-                $scope.ajaxError = data;
+                $scope.ajaxError = data.ExceptionMessage;
                 $scope.showAjaxError = true;
             });
     };
@@ -46,7 +46,7 @@
     $scope.launchMap = function (lat, lon) {
         // from http://www.kendar.org/?p=/tutorials/angularjs/part03
         //alert('lat-' + lat);
-        $scope.valueToPass = "I must be passed";
+        $scope.valueToPass = lat + "/" + lon;
 
         var modalInstance = $modal.open({
             templateUrl: '/scripts/theDialogPartial.html',

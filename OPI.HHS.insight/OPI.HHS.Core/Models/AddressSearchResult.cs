@@ -13,5 +13,7 @@ namespace OPI.HHS.Core.Models
         public string Zip { get; set; }
         public string Lat { get; set; }
         public string Lon { get; set; }
+        public string Type { get; set; }
+        public string Phone { get; set; }
     }
 }

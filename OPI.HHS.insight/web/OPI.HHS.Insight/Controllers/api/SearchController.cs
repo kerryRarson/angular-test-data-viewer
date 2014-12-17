@@ -80,5 +80,12 @@ namespace OPI.HHS.Insight.Controllers.api
             
             return _svc.GetProgramsByCase(caseNum);
         }
+
+        [HttpGet]
+        [Route("api/search/getaddrsbycase")]
+        public IEnumerable<AddressSearchResult> GetAddressesByCase(int caseNum)
+        {
+            return _svc.GetAddressesByCase(caseNum);
+        }
     }
 }

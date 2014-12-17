@@ -36,7 +36,16 @@ namespace OPI.HHS.Core.Tests
             }
 
         }
-
+        [TestMethod]
+        public void GetAddressesByCase()
+        {
+            using (var ctx = new HHSService())
+            {
+                var actual = ctx.GetAddressesByCase(422567);
+                Assert.IsNotNull(actual);
+                Assert.IsTrue(actual.Count() > 0);
+            }
+        }
         [TestMethod]
         public void SearchByName()
         {

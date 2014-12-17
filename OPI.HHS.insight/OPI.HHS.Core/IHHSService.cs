@@ -18,6 +18,7 @@ namespace OPI.HHS.Core
         IEnumerable<Relationship> GetParentsByCase(string caseNum);
         IEnumerable<ReferralSearchResult> GetReferralsByCase(string caseNum);
         IEnumerable<Program> GetProgramsByCase(string caseNum);
+        IEnumerable<AddressSearchResult> GetAddressesByCase(int caseNum);
 
 
     }

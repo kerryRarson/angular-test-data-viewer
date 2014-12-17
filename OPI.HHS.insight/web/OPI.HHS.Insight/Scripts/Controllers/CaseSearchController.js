@@ -15,7 +15,7 @@
                 $scope.searching = false;
             }
             ).error(function (data, status, headers, config) {
-                $scope.ajaxError = data;
+                $scope.ajaxError = data.execptionMessage;
                 $scope.showAjaxError = true;
                 $scope.searching = false;
         });
