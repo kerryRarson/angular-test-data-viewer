@@ -1,29 +1,25 @@
-﻿<div class="container-fluid">
+﻿<div class="container">
     <div class="row">
         <div class="alert alert-danger" role="alert" ng-show="showAjaxError"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">{{ajaxError}}</span></div>
-        @*<div class="col-lg-1">*@
+    </div>
+    <div class="row">
+        <div class="col-md-5">
             @*<p> look at this article: http://weblogs.asp.net/dwahlin/using-an-angularjs-factory-to-interact-with-a-restful-service</p>*@
-            <form name="searchForm" ng-submit="searchByCity()">
+            <form name="searchForm" ng-submit="searchByCity()" class="form-inline">
                 <fieldset ng-disabled="searching">
                     <div class="form-group">
-                        <div class="col-md-2">
-                            <select ng-options="st for st in states" ng-model="searchState" required class="form-control"></select>
-                        </div>
-                        <div class="col-md-3">
-                            <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control" />
-                        </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"> Search</span>
-                            </button>
-                        </div>
-                        <div class="col-md-4">
-                            <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
-                        </div>
+                        <select ng-options="st for st in states" ng-model="searchState" required class="form-control"></select>
+                        <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control" />
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"> Search</span>
+                        </button>
                     </div>
                 </fieldset>
             </form>
-        @*</div>*@
+        </div>
+        <div class="col-md-7">
+            <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
+        </div>
     </div>
     <p></p>
 
@@ -49,7 +45,7 @@
                                 <td>{{ r.City }}</td>
                                 <td>{{ r.State }}</td>
                                 <td>{{ r.Zip }}</td>
-                                <td><a ng-click="launchMap(r.Lon, r.Lat)"><span class="glyphicon glyphicon-map-marker"></span></a></td>
+                                <td><a ng-show="r.Lat != ''" ng-click="launchMap(r.Lon, r.Lat)"><span class="glyphicon glyphicon-map-marker"></span></a></td>
                                 @*<td>{{ r.Lon}}/{{r.Lat}}</td>*@
                             </tr>
                         </tbody>

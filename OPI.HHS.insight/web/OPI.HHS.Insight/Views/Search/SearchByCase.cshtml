@@ -1,27 +1,23 @@
 ﻿<div class="container">
+    <div class="row"><div class="alert alert-danger" role="alert" ng-show="showAjaxError">{{ajaxError}}</div></div>
     <div class="row">
-        <div class="alert alert-danger" role="alert" ng-show="showAjaxError">{{ajaxError}}</div>
-        <div class="form-group">
-            <form name="searchForm" ng-submit="searchByCase()">
+        <div class="col-md-5">
+            <form name="searchForm" ng-submit="searchByCase()" class="form-inline">
                 <fieldset ng-disabled="searching">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="number" placeholder="HHS Case #" ng-model="searchForm.searchCase" ng-bind="searchForm.searchCase" required class="form-control" />
+                    <div class="form-group">
+                    <input type="number" placeholder="HHS Case #" ng-model="searchForm.searchCase" ng-bind="searchForm.searchCase" required class="form-control" />
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"> Search</span>
+                    </button>    
                         </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"> Search</span>
-                            </button>
-                        </div>
-                        <div class="col-md-4">
-                            <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
-                        </div>
-                    </div>
                 </fieldset>
             </form>
         </div>
+        <div class="col-md-7">
+            <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
+        </div>
     </div>
-
+    <p></p>
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">{{ searchResults.length}} Addresses</div>

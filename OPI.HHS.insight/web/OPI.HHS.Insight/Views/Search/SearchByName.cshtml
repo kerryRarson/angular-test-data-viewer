@@ -1,23 +1,23 @@
 ﻿<div class="container">
-    <div class="form-group">
-        <form name="searchForm" ng-submit="searchByName()">
-            <fieldset ng-disabled="searching">
-                <div class="row">
-                    <div class="col-md-3">
-                        <input type="text" placeholder="Name" ng-model="searchForm.searchName" ng-bind="searchForm.searchName" required class="form-control" />
+    <div class="row"><div class="alert alert-danger" role="alert" ng-show="showAjaxError"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">{{ajaxError}}</span></div></div>
+    <div class="row">
+        <div class="col-md-4">
+            <form name="searchForm" ng-submit="searchByName()" class="form-inline">
+                <fieldset ng-disabled="searching">    
+                    <div class="form-group">
+                    <input type="text" placeholder="Name" ng-model="searchForm.searchName" ng-bind="searchForm.searchName" required class="form-control" />
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"> Search</span>
+                    </button>
                     </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"> Search</span>
-                        </button>
-                    </div>
-                    <div class="col-md-3">
-                        <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-md-7">
+            <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
+        </div>
     </div>
+    <p></p>
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">{{ searchResults.length}} HHS Referrals</div>
