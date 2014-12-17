@@ -1,6 +1,6 @@
 ﻿<div class="container-fluid">
     <div class="row">
-        <div class="alert alert-danger" role="alert" ng-show="showAjaxError">{{ajaxError}}</div>
+        <div class="alert alert-danger" role="alert" ng-show="showAjaxError"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">{{ajaxError}}</span></div>
         @*<div class="col-lg-1">*@
             @*<p> look at this article: http://weblogs.asp.net/dwahlin/using-an-angularjs-factory-to-interact-with-a-restful-service</p>*@
             <form name="searchForm" ng-submit="searchByCity()">
@@ -12,8 +12,10 @@
                         <div class="col-md-3">
                             <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control" />
                         </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary">Search</button>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"> Search</span>
+                            </button>
                         </div>
                         <div class="col-md-4">
                             <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
@@ -37,7 +39,7 @@
                             <th>City</th>
                             <th>St</th>
                             <th>Zip</th>
-                            <th>Lon/Lat</th>
+                            <th></th>
                         </tr>
                         <tbody>
                             <tr data-ng-repeat="r in searchResults">
@@ -47,7 +49,7 @@
                                 <td>{{ r.City }}</td>
                                 <td>{{ r.State }}</td>
                                 <td>{{ r.Zip }}</td>
-                                <td><a ng-click="launchMap(r.Lon, r.Lat)">{{r.Lon}}/{{ r.Lat }}</a></td>
+                                <td><a ng-click="launchMap(r.Lon, r.Lat)"><span class="glyphicon glyphicon-map-marker"></span></a></td>
                                 @*<td>{{ r.Lon}}/{{r.Lat}}</td>*@
                             </tr>
                         </tbody>

@@ -9,7 +9,9 @@
                             <input type="number" placeholder="HHS Case #" ng-model="searchForm.searchCase" ng-bind="searchForm.searchCase" required class="form-control" />
                         </div>
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"> Search</span>
+                            </button>
                         </div>
                         <div class="col-md-4">
                             <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
