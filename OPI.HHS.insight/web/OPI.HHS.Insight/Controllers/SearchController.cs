@@ -31,5 +31,11 @@ namespace OPI.HHS.Insight.Controllers
             
             return View();
         }
+
+        public ActionResult ReferralDetail(int Id)
+        {
+            ViewBag.ReferralId = Id;
+            return View();
+        }
     }
 }

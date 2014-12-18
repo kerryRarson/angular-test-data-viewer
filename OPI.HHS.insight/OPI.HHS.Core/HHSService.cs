@@ -269,14 +269,32 @@ namespace OPI.HHS.Core
                      .Where(a => a.Case == caseNum)
                      .OrderBy(a => a.Zip).ThenBy(a => a.FormattedAddress).ToList<AddressSearchResult>();
             }
-            // != null ? String.Format("{0:(###) ###-####}", a.Telephone1) : string.Empty,
-            //format the phone
-            foreach (var a in rtn)
+            
+            return rtn;
+        }
+
+        public ReferralSearchResult GetReferral(int Id)
+        {
+            var rtn = new ReferralSearchResult();
+            using (var ctx = new DAL.EFContext())
             {
-                if (a.Phone != null && a.Phone.Length > 1)
-                {
-                    a.Phone = string.Format("{0:(###) ###-####}", long.Parse(a.Phone));
-                }
+                rtn = ctx.HHS_Referrals
+                    .AsNoTracking()
+                    .Select(r => new ReferralSearchResult
+                    {
+                        ReferralId = r.Id,
+                        LastName = r.LastName,
+                        FirstName = r.FirstName,
+                        MiddleName = r.MiddleName,
+                        Source = r.Source,
+                        Gender = r.Gender,
+                        Race = r.Race,
+                        Ethnicity = r.Ethnicity,
+                        DOB = r.DOBText
+                    })
+                    .Distinct()
+                    .Where(x => x.ReferralId == Id)
+                    .FirstOrDefault<ReferralSearchResult>();
             }
             return rtn;
         }

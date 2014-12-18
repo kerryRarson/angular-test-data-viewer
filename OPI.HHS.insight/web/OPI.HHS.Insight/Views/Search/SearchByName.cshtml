@@ -39,7 +39,7 @@
                         </tr>
                         <tbody>
                             <tr data-ng-repeat="r in searchResults">
-                                <td>{{ r.ReferralId }}</td>
+                                <td><a ng-href="{{ buildReferralUrl(r.ReferralId)}}">{{r.ReferralId}}</a></td>
                                 <td>{{ r.FormattedName }}</td>
                                 <td>{{ r.DOB }}</td>
                                 <td>{{ r.Gender }}</td>

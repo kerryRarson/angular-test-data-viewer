@@ -16,6 +16,10 @@
                 alert("Oops... something went wrong");
                 $scope.searching = false;
             });
+        $scope.buildReferralUrl = function (referralId) {
+            var returnUrl = '#/referral/' + referralId;
+            return returnUrl;
+        };
     };
 }
 

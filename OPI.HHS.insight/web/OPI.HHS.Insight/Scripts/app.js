@@ -5,6 +5,7 @@ demoApp.controller('CitySearchController', CitySearchController);
 demoApp.controller('CaseSearchController', CaseSearchController);
 demoApp.controller('NameSearchController', NameSearchController);
 demoApp.controller('CaseDetailController', CaseDetailController);
+demoApp.controller('ReferralDetailController', ReferralDetailController);
 //TODO refactor this to it's own controller .js
 demoApp.controller('TheDialogController', function ($scope, $modalInstance, aValue) {
     $scope.valuePassed = aValue;
@@ -50,7 +51,7 @@ var configFunction = function ($routeProvider, $httpProvider) {
         //    controller: PeopleSearchController
         //})
         .when('/casedetail/:caseNum', {
-            templateUrl: function (params) { return '/search/casedetail?caseNum=' + params.caseNum ; },
+            templateUrl: function (params) { return '/search/casedetail?caseNum=' + params.caseNum; },
             controller: CaseDetailController
         })
         .when('/routeTwo/:donuts', {
@@ -64,6 +65,10 @@ var configFunction = function ($routeProvider, $httpProvider) {
             templateUrl: 'search/searchbyname',
             controller: NameSearchController
         })
+        .when('/referral/:id', {
+            templateUrl: function (params) { return '/search/referraldetail?id=' + params.id; },
+            controller: ReferralDetailController
+        });
         //.when('/routeThree', {
         //    templateUrl: 'routesDemo/three'
         //})

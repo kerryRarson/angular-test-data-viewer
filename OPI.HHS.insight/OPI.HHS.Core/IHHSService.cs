@@ -19,7 +19,6 @@ namespace OPI.HHS.Core
         IEnumerable<ReferralSearchResult> GetReferralsByCase(string caseNum);
         IEnumerable<Program> GetProgramsByCase(string caseNum);
         IEnumerable<AddressSearchResult> GetAddressesByCase(int caseNum);
-
-
+        ReferralSearchResult GetReferral(int Id);
     }
 }

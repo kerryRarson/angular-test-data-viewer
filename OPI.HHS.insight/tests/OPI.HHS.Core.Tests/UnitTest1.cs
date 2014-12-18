@@ -92,5 +92,16 @@ namespace OPI.HHS.Core.Tests
                 Console.WriteLine("returned - {0}", actual);
             }
         }
+
+        [TestMethod]
+        public void GetReferral()
+        {
+            using (var svc = new HHSService())
+            {
+                var actual = svc.GetReferral(1762453);
+                Assert.IsNotNull(actual);
+                Console.WriteLine("returned {0}, {1}", actual.LastName, actual.FirstName);
+            }
+        }
     }
 }

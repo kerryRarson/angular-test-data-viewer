@@ -25,6 +25,10 @@
         var returnUrl = '#/casedetail/' + caseNum;
         return returnUrl;
     };
+    $scope.buildReferralUrl = function (referralId) {
+        var returnUrl = '#/referral/' + referralId;
+        return returnUrl;
+    };
 
     function getStates() {
         $http.get('api/search/getstates')

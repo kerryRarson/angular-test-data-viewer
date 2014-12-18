@@ -1,6 +1,12 @@
 ﻿<div class="container" ng-init="init('@ViewBag.CaseNumber')">
     <div class="row">
-        <div class="alert alert-danger" role="alert" ng-show="showAjaxError">{{ajaxError}}</div>
+        <div class="alert alert-danger" role="alert" ng-show="showAjaxError">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{ajaxError}}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-3">
             <div class="container">
                 <h4><span class="label label-warning">Case #</span> <span> {{caseNum}}</span></h4>
@@ -31,7 +37,7 @@
                         <th>Ethnicity</th>
                     </tr>
                     <tr ng-repeat="r in referrals">
-                        <td>{{r.ReferralId}}</td>
+                        <td><a ng-href="{{ buildReferralUrl(r.ReferralId)}}">{{r.ReferralId}}</a></td>
                         <td>{{r.FormattedName}}</td>
                         <td>{{r.DOB}}</td>
                         <td>{{r.Gender}}</td>
