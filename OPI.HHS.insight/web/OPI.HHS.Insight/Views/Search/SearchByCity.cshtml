@@ -1,6 +1,6 @@
 ﻿<div class="container">
     <div class="row">
-        <div class="alert alert-danger" role="alert" ng-show="showAjaxError"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">{{ajaxError}}</span></div>
+        <div class="alert alert-danger" role="alert" ng-show="showAjaxError"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">{{ajaxError}}</span><span class="sr-only">{{ajaxError}}</span></div>
     </div>
     <div class="row">
         <div class="col-md-5">
@@ -30,23 +30,16 @@
                 <table class="table table-striped table-responsive">
                         <tr>
                             <th>Case #</th>
-                            <th>Address 1</th>
-                            <th>Address 2</th>
-                            <th>City</th>
-                            <th>St</th>
-                            <th>Zip</th>
+                            <th>Address</th>
+                            <th>Phone</th>
                             <th></th>
                         </tr>
                         <tbody>
                             <tr data-ng-repeat="r in searchResults">
                                 <td><a ng-href="{{ buildPeopleUrl(r.Case)}}">{{r.Case}}</a></td>
-                                <td>{{ r.Line1 }}</td>
-                                <td>{{ r.Line2 }}</td>
-                                <td>{{ r.City }}</td>
-                                <td>{{ r.State }}</td>
-                                <td>{{ r.Zip }}</td>
+                                <td>{{ r.FormattedAddress }}</td>
+                                <td>{{ r.Phone }}</td>
                                 <td><a ng-show="r.Lat != ''" ng-click="launchMap(r.Lon, r.Lat)"><span class="glyphicon glyphicon-map-marker"></span></a></td>
-                                @*<td>{{ r.Lon}}/{{r.Lat}}</td>*@
                             </tr>
                         </tbody>
                     </table>

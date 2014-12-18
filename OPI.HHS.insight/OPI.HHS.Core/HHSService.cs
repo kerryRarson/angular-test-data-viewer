@@ -136,7 +136,8 @@ namespace OPI.HHS.Core
                          Case = a.CaseNumber,
                          Referral = a.Referral,
                          Lat = a.Location.Latitude.ToString(),
-                         Lon = a.Location.Longitude.ToString()
+                         Lon = a.Location.Longitude.ToString(),
+                         FormattedAddress = a.FormattedAddress
                      })
                      .Distinct()
                      .Where(a => a.Case == caseNumber)
@@ -169,11 +170,13 @@ namespace OPI.HHS.Core
                          //Case = a.CaseNumber,
                          //Referral = a.Referral,
                          Lat = a.Location.Latitude.ToString(),
-                         Lon = a.Location.Longitude.ToString()
+                         Lon = a.Location.Longitude.ToString(),
+                         FormattedAddress = a.FormattedAddress,
+                         Phone = a.Telephone1
                      })
                      .Distinct()
                      .Where(a => a.City.Contains( city) && a.State == state)
-                     .OrderBy(a => a.Zip).ThenBy(a => a.Line1).ToList<AddressSearchResult>();
+                     .OrderBy(a => a.Zip).ThenBy(a => a.FormattedAddress).ToList<AddressSearchResult>();
             }
             return rtn;
 
@@ -259,11 +262,12 @@ namespace OPI.HHS.Core
                         Lat = a.Location.Latitude.ToString(),
                         Lon = a.Location.Longitude.ToString(),
                         Phone = a.Telephone1,
+                        FormattedAddress = a.FormattedAddress,
                         Type = a.Type
                     })
                      .Distinct()
                      .Where(a => a.Case == caseNum)
-                     .OrderBy(a => a.Zip).ThenBy(a => a.Line1).ToList<AddressSearchResult>();
+                     .OrderBy(a => a.Zip).ThenBy(a => a.FormattedAddress).ToList<AddressSearchResult>();
             }
             // != null ? String.Format("{0:(###) ###-####}", a.Telephone1) : string.Empty,
             //format the phone
