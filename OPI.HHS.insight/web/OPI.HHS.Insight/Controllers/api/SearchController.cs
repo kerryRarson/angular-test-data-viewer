@@ -23,29 +23,23 @@ namespace OPI.HHS.Insight.Controllers.api
             return rtn;
         }
 
-        // GET api/search?state=xx&?city=yyy
-        [HttpGet]
+        [HttpPost]
         [Route("api/search/bycity")]
-        //[CacheOutput(ClientTimeSpan = 600, ServerTimeSpan = 600)]
         public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCity(string st, string city)
         {
-            System.Diagnostics.Debug.WriteLine("searching for {0}, {1}...", city, st);
-            
             var rtn = _svc.SearchByCityState(city, st);
             return rtn;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/search/bycase")]
-        public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCaseNumber(string caseNumber)
+        public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCaseNumber(int caseNumber)
         {
             
-            int num;
-            int.TryParse(caseNumber, out num);
-            return _svc.SearchByCase(num);
+            return _svc.SearchByCase(caseNumber);
         }
         
-        [HttpGet]
+        [HttpPost]
         [Route("api/search/byname")]
         public IEnumerable<ReferralSearchResult> SearchByName(string lastName)
         {

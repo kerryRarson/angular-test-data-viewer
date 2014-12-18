@@ -10,7 +10,8 @@
     };
     $scope.searchByCity = function () {
         $scope.searching = true;
-        $http.get('/api/search/bycity?st=' + $scope.searchState + '&city=' + $scope.searchCity)
+        var data = {st: $scope.searchState, city: $scope.searchByCity};
+        $http.post('/api/search/bycity?st=' + $scope.searchState + '&city=' + $scope.searchCity, data)
             .success(function (data, status,         headers, config) {
                 $scope.searchResults = data;
                 $scope.searching = false;

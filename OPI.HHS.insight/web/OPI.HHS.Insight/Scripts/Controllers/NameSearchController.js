@@ -1,5 +1,7 @@
 ﻿var NameSearchController = function ($scope, $http) {
     $scope.models = {
+        showAjaxError: false,
+        ajaxError: '',
         searching: false,
         searchName: '',
         searchResults: []
@@ -7,13 +9,15 @@
     $scope.searchByName = function () {
         $scope.searching = true;
 
-        $http.get('/api/search/byname?lastname=' + $scope.searchForm.searchName)
+        var data = { lastName: $scope.searchForm.searchName };
+        $http.post('/api/search/byname?lastname=' + $scope.searchForm.searchName, data)
             .success(function (data, status, headers, config) {
                 $scope.searchResults = data;
                 $scope.searching = false;
             }
             ).error(function (data, status, headers, config) {
-                alert("Oops... something went wrong");
+                $scop.ajaxError = status;//data.MessageDetail;
+                $scope.showAjaxError = true;
                 $scope.searching = false;
             });
         $scope.buildReferralUrl = function (referralId) {

@@ -9,13 +9,14 @@
     $scope.searchByCase = function () {
         //alert('searching for case #' + $scope.searchForm.searchCase);
         $scope.searching = true;
-        $http.get('/api/search/bycase?casenumber=' + $scope.searchForm.searchCase)
+        var data = {caseNumber: $scope.searchForm.searchCase};
+        $http.post('/api/search/bycase?casenumber=' + $scope.searchForm.searchCase, data)
             .success(function (data, status, headers, config) {
                 $scope.searchResults = data;
                 $scope.searching = false;
             }
             ).error(function (data, status, headers, config) {
-                $scope.ajaxError = data.execptionMessage;
+                $scope.ajaxError = data.Message;//data.execptionMessage;
                 $scope.showAjaxError = true;
                 $scope.searching = false;
         });
