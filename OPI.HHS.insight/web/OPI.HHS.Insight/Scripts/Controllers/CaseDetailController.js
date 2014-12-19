@@ -94,6 +94,10 @@
         $scope.loading = false;
         $scope.loaded = true;
     });
+    $scope.buildReferralUrl = function (referralId) {
+        var returnUrl = '#/referral/' + referralId;
+        return returnUrl;
+    };
 }
 
 // The inject property of every controller (and pretty much every other type of object in Angular) needs to be a string array equal to the controllers arguments, only as strings

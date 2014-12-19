@@ -10,6 +10,8 @@ namespace OPI.HHS.Insight.Controllers
 {
     public class SearchController : Controller
     {
+        protected readonly IHHSService _svc;
+        public SearchController(IHHSService svc) { _svc = svc; }
         // GET: Search
         public ActionResult SearchByCity()
         {
@@ -34,8 +36,24 @@ namespace OPI.HHS.Insight.Controllers
 
         public ActionResult ReferralDetail(int Id)
         {
-            ViewBag.ReferralId = Id;
-            return View();
+            var model = new Models.ReferralModel();
+            var r = _svc.GetReferral(Id);
+            if (r != null)
+            {
+                model = new Models.ReferralModel() { 
+                ReferralId = Id,
+                 LastName = r.LastName,
+                 FirstName = r.FirstName,
+                 MiddleName = r.MiddleName,
+                 Suffix = r.Suffix,
+                 DOB = r.DOB,
+                 Race = r.Race,
+                 Gender = r.Gender,
+                 Ethnicity = r.Ethnicity,
+                 Source = r.Source
+                };
+            }
+            return View(model);
         }
     }
 }

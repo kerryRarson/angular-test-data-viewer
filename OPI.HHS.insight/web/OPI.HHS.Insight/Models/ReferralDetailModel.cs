@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace OPI.HHS.Core.Models
+namespace OPI.HHS.Insight.Models
 {
-    public class ReferralSearchResult
+    public class ReferralModel
     {
         public int ReferralId { get; set; }
         public string Source { get; set; }
-        public string LastName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
+        public string LastName { get; set; }
         public string Suffix { get; set; }
         public string Gender { get; set; }
         public string Race { get; set; }
@@ -19,13 +22,10 @@ namespace OPI.HHS.Core.Models
             get
             {
                 var rtn = string.Empty;
-                if (LastName != null) rtn += LastName;
-                if (FirstName != null) rtn += ", " + FirstName;
-                if (MiddleName != null)
-                {
-                    if (MiddleName.Length > 0) rtn += " " + MiddleName;
-                }
-                return rtn.Trim();
+                if (this.LastName != null && this.LastName.Length > 1) { rtn = this.LastName; }
+                if (this.FirstName != null && this.FirstName.Length > 1) { rtn += ", " + this.FirstName; }
+                if (this.MiddleName != null && this.MiddleName.Length > 1) { rtn += " " + this.MiddleName; }
+                return rtn;
             }
         }
     }

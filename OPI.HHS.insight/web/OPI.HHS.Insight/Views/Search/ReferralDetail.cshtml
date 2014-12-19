@@ -1,1 +1,38 @@
-﻿uhhhhh
+﻿@model OPI.HHS.Insight.Models.ReferralModel
+<div class="container">
+    <div class="row">
+        <h4><span class="label label-default">Referral Id</span><span> @Model.ReferralId</span></h4>
+    </div>
+    <div class="row">
+        <h4> @Model.FormattedName</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <h4><span class="label label-default">DOB</span><span> @Model.DOB</span></h4>
+        </div>
+        <div class="col-md-2">
+            <h4><span class="label label-default">Gender</span><span> @Model.Gender</span></h4>
+        </div>
+        <div class="col-md-2">
+            <h4><span class="label label-default">Race</span><span> @Model.Race</span></h4>
+        </div>
+        <div class="col-md-2">
+            <h4><span class="label label-default">Ethnicity</span><span> @Model.Ethnicity</span></h4>
+        </div>
+    </div>
+
+    <div class="row" style="padding-top:8px;">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ addresses.length}} Addresses</div>
+            <div class="panel-body">
+                <table class="table table-striped table-condensed">
+                    <tr>
+                        <th>Type</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
