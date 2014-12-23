@@ -76,6 +76,13 @@ namespace OPI.HHS.Insight.Controllers.api
         }
 
         [HttpGet]
+        [Route("api/search/getprogramsbyreferral")]
+        public IEnumerable<Program> GetProgramsByReferral(int id)
+        {
+            return _svc.GetProgramsByReferral(id);
+        }
+
+        [HttpGet]
         [Route("api/search/getaddrsbycase")]
         public IEnumerable<AddressSearchResult> GetAddressesByCase(int caseNum)
         {

@@ -36,6 +36,36 @@ namespace OPI.HHS.Core
             }
             return rtn;
         }
+
+        /// <summary>
+        /// Gets the programs by referral.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<Program> GetProgramsByReferral(int id)
+        {
+            var rtn = new List<Program>();
+            using (var ctx = new DAL.EFContext())
+            {
+                rtn = ctx.HHS_Programs
+                    .AsNoTracking()
+                    .Select(p => new Program
+                    {
+                        ProgramCode = p.ProgramCode,
+                        StartDate = p.StartDate,
+                        EndDate = p.EndDate,
+                        EligiblityStatus = p.EligiblityStatus,
+                        CaseNumber = p.CaseNumber,
+                        Referral = p.Referral
+                    })
+                    .Distinct()
+                    .Where(p => p.Referral == id)
+                    .OrderByDescending(p => p.StartDate)
+                    .ThenBy(p => p.EndDate)
+                    .ToList();
+            }
+            return rtn;
+        }
         /// <summary>
         /// Gets the referrals by case.
         /// </summary>

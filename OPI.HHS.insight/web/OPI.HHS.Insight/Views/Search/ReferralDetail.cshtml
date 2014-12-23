@@ -1,23 +1,26 @@
 ﻿@model OPI.HHS.Insight.Models.ReferralModel
 <div class="container" ng-init="init('@Model.ReferralId')">
     <div class="row">
-        <h4><span class="label label-default">Referral Id</span><span> @Model.ReferralId</span></h4>
+        <div class="col-md-3">
+            <h3><span>@Model.FormattedName</span></h3>
+        </div>
     </div>
+    
     <div class="row">
-        <h3> @Model.FormattedName</h3> 
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            <h4><span class="label label-default">DOB</span><span> @Model.DOB</span></h4>
+        <div class="col-md-3">
+            <span class="label label-default">Referral Id</span><span> @Model.ReferralId</span>
         </div>
         <div class="col-md-2">
-            <h4><span class="label label-default">Gender</span><span> @Model.Gender</span></h4>
+            <span class="label label-default">DOB</span><span> @Model.DOB</span>
         </div>
         <div class="col-md-2">
-            <h4><span class="label label-default">Race</span><span> @Model.Race</span></h4>
+            <span class="label label-default">Gender</span><span> @Model.Gender</span>
         </div>
         <div class="col-md-2">
-            <h4><span class="label label-default">Ethnicity</span><span> @Model.Ethnicity</span></h4>
+            <span class="label label-default">Race</span><span> @Model.Race</span>
+        </div>
+        <div class="col-md-2">
+            <span class="label label-default">Ethnicity</span><span> @Model.Ethnicity</span>
         </div>
     </div>
 
@@ -34,22 +37,17 @@
                     <tr ng-repeat="a in addresses" ng-click="rowClick(a.Line1,a.Line2,a.City,a.State)">
                         <td>{{a.Type}}</td>
                         <td>{{a.FormattedAddress}}</td>
-                        <td>{{a.PhoneNumber}}</td>
-                        <td class="invisible">{{a.Line1}}</td>
-                        <td class="invisible">{{a.Line2}}</td>
-                        <td class="invisible">{{a.City}}</td>
-                        <td class="invisible">{{a.State}}</td>
+                        <td>{{a.Phone}}</td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-    <div class="container" ng-show="showMap">
-        <div class="panel panel-default">
-            <div class="panel-heading">{{Lat}} / {{Lon}}</div>
-            <div class="panel-body">
-                <div id="mapPlaceholder" style="height:400px;width:700px;"></div>
-            </div>
+    
+    <div class="panel panel-default" ng-show="showMap">
+        <div class="panel-heading">{{Lat}} / {{Lon}}</div>
+        <div class="panel-body">
+            <div id="mapPlaceholder" style="height:400px;width:700px;"></div>
         </div>
     </div>
 </div>

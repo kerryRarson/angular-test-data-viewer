@@ -103,5 +103,25 @@ namespace OPI.HHS.Core.Tests
                 Console.WriteLine("returned {0}, {1}", actual.LastName, actual.FirstName);
             }
         }
+        [TestMethod]
+        public void GetProgramsByReferral()
+        {
+            using (var svc = new HHSService())
+            {
+                var actual = svc.GetProgramsByReferral(1784783);
+                Assert.IsNotNull(actual);
+                Console.WriteLine("Referral 1784783 returned {0} rows", actual.Count());
+            }
+        }
+        [TestMethod]
+        public void GetProgramsByCase()
+        {
+            using (var svc = new HHSService())
+            {
+                var actual = svc.GetProgramsByCase("601615");
+                Assert.IsNotNull(actual);
+                Console.WriteLine("Case 601615 returned {0} rows", actual.Count());
+            }
+        }
     }
 }

@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+.ajax-indicator{
+    width:26px;
+    height:26px;
+}
