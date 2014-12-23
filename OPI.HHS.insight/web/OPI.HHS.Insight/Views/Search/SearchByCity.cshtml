@@ -8,12 +8,11 @@
     </div>
     <div class="row">
         <div class="col-md-5">
-            @*<p> look at this article: http://weblogs.asp.net/dwahlin/using-an-angularjs-factory-to-interact-with-a-restful-service</p>*@
             <form name="searchForm" ng-submit="searchByCity()" class="form-inline">
                 <fieldset ng-disabled="searching">
                     <div class="form-group">
                         <select ng-options="st for st in states" ng-model="searchState" required class="form-control"></select>
-                        <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control" />
+                        <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control"/>
                         <button type="submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </button>
@@ -22,7 +21,7 @@
             </form>
         </div>
         <div class="col-md-7">
-            <div ng-show="searching"><img src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
+            <div ng-show="searching"><img src="~/Content/images/progress.gif" style="height:25px;width:25px;" />&nbsp; Searching...</div>
         </div>
     </div>
     <p></p>
@@ -36,10 +35,14 @@
                             <th>Case #</th>
                             <th>Address</th>
                             <th>Phone</th>
-                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="text" ng-model="cityFilter" placeholder="Filter" class="form-control" ng-show="loaded" /></td>
+                            <td></td>
                         </tr>
                         <tbody>
-                            <tr data-ng-repeat="r in searchResults">
+                            <tr data-ng-repeat="r in searchResults | filter:cityFilter">
                                 <td><a ng-href="{{ buildPeopleUrl(r.Case)}}">{{r.Case}}</a></td>
                                 <td>{{ r.FormattedAddress }}</td>
                                 <td>{{ r.Phone }}</td>
@@ -50,58 +53,5 @@
             </div>
         </div>
 
-        </div>
+    </div>
 </div>
-    
-@*<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
-<script>
-
-</script>*@
-    @*
-        map example from http://plnkr.co/edit/eEtaGH?p=preview
-    Bootstrap modal from http://angular-ui.github.io/bootstrap/#/top
-    http://stackoverflow.com/questions/15324039/how-to-create-a-url-for-link-helper-in-angularjjs
-
-    There are numerous approaches...a custom directive or ng-click to modify $location, or using a function in ng-href to parse the url from object and have it placed as href in an <a>
-        tag.
-
-        Example using ng-href:
-
-        HTML:
-
-        <li ng-repeat="item in items">
-            <a ng-href="{{url(item)}}">{{item.txt}}</a>
-        </li>
-        JS:
-
-        function Ctrl($scope){
-        $scope.items=[
-        {id:1,txt:'foo'},
-        {id:2,txt:'bar'}
-        ];
-
-        $scope.url=function(item){
-        return '#/'+item.id
-        }
-        }
-        Example using ng-click and $location
-
-        HTML:
-
-        <a ng-click="newPath(item)">{{item.txt}}</a>
-        JS:
-
-        function Ctrl($scope){
-        $scope.items=[
-        {id:1,txt:'foo'},
-        {id:2,txt:'bar'}
-        ];
-
-        $scope.newPath=function(item){
-        $location.path('/'+item.id)
-        }
-        }
-        DEMO: http://jsbin.com/ovemaq/3
-
-        share|improve this answer*@
-        

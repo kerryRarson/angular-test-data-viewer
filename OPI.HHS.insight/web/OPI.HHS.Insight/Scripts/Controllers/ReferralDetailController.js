@@ -3,19 +3,39 @@
     $scope.ajaxError = '';
     $scope.loaded = false;
     $scope.ReferralId = '';
-    $scope.LastName = '';
-    $scope.FirstName = '';
+    $scope.addresses = [];
+    $scope.showMap = false;
+    $scope.Lat = '';
+    $scope.Lon = '';
 
+    
     $scope.init = function (referralId) {
         $scope.referralId = referralId;
-        getReferral(referralId);
+        getAddresses(referralId);
         $scope.loaded = true;
     }
-    function getReferral(id) {
-        $http.get('api/search/getreferral?id=' + id)
+    $scope.rowClick = function (line1, line2, city, state) {
+        $scope.showMap = true;
+
+        var data = { line1: line1, line2: line2, city: city, state: state };
+        $http.post('/api/geocode?line1=' + line1 + '&line2=' + line2 + '&city=' + city + '&state=' + state, data)
             .success(function (data, status, headers, config) {
-                $scope.LastName = data.LastName;
-                $scope.FirstName = data.FirstName;
+                $scope.Lat = data.Lat;
+                $scope.Lon = data.Lon;
+                showLocation(data.Lat, data.Lon);
+                $scope.searching = false;
+            }
+            ).error(function (data, status, headers, config) {
+                $scope.ajaxError = data.MessageDetails;
+                $scope.showAjaxError = true;
+                $scope.searching = false;
+            });
+
+    }
+    function getAddresses(referralId) {
+        $http.get('api/search/getaddrsbyreferral?id=' + referralId)
+            .success(function (data, status, headers, config) {
+                $scope.addresses = data;
             })
             .error(function (data, status, headers, config) {
                 $scope.ajaxError = data.ExceptionMessage;

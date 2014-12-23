@@ -227,7 +227,14 @@ namespace OPI.HHS.Core
                         .AsNoTracking()
                         .Where(c => c.Co == countyId).FirstOrDefault();
 
-                    rtn = county.Name;
+                    if (county != null)
+                    {
+                        rtn = county.Name;
+                    }
+                    else
+                    {
+                        rtn = "UNKNOWN";
+                    }
                 }
             }
             return rtn == null ? string.Empty : rtn;
@@ -243,6 +250,44 @@ namespace OPI.HHS.Core
             return found;
         }
 
+        /// <summary>
+        /// Gets the addresses by referral.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<AddressSearchResult> GetAddressesByReferral(int id)
+        {
+            List<AddressSearchResult> rtn = new List<AddressSearchResult>();
+            using (var ctx = new DAL.EFContext())
+            {
+                rtn = ctx.HHS_Addresses
+                    .AsNoTracking()
+                    .Select(a => new AddressSearchResult
+                    {
+                        Line1 = a.Line1,
+                        Line2 = a.Line2,
+                        City = a.City,
+                        State = a.State,
+                        Zip = a.PostalCode,
+                        Case = a.CaseNumber,
+                        Referral = a.Referral,
+                        Lat = a.Location.Latitude.ToString(),
+                        Lon = a.Location.Longitude.ToString(),
+                        Phone = a.Telephone1,
+                        FormattedAddress = a.FormattedAddress,
+                        Type = a.Type
+                    })
+                     .Distinct()
+                     .Where(a => a.Referral == id)
+                     .OrderBy(a => a.Zip).ThenBy(a => a.FormattedAddress).ToList<AddressSearchResult>();
+            }
+            return rtn;
+        }
+        /// <summary>
+        /// Gets the addresses by case.
+        /// </summary>
+        /// <param name="caseNum">The case number.</param>
+        /// <returns></returns>
         public IEnumerable<AddressSearchResult> GetAddressesByCase(int caseNum)
         {
             List<AddressSearchResult> rtn = new List<AddressSearchResult>();

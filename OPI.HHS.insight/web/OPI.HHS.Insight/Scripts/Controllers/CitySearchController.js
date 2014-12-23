@@ -1,6 +1,7 @@
 ﻿var CitySearchController = function ($scope, $http, $modal) {
     $scope.models = {
         searching: false,
+        loaded: false,
         showAjaxError: false,
         ajaxError: '',
         searchState: '',
@@ -15,6 +16,7 @@
             .success(function (data, status,         headers, config) {
                 $scope.searchResults = data;
                 $scope.searching = false;
+                $scope.loaded = true;
             }
             ).error(function (data, status, headers, config) {
                 $scope.ajaxError = data.ExceptionMessage;

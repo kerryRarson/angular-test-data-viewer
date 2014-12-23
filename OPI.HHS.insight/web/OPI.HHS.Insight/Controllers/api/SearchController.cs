@@ -88,5 +88,12 @@ namespace OPI.HHS.Insight.Controllers.api
         {
             return _svc.GetReferral(referralId);
         }
+
+        [HttpGet]
+        [Route("api/search/getaddrsbyreferral")]
+        public IEnumerable<AddressSearchResult> GetAddressesByReferral(int id)
+        {
+            return _svc.GetAddressesByReferral(id);
+        }
     }
 }
