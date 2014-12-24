@@ -109,7 +109,7 @@ namespace OPI.HHS.Core
 	                        ,p.Race
 	                        ,p.Ethnicity
 	                        ,convert(varchar(10), p.DOB, 127) as 'DOB'
-							,case r.relationshipcode when 'PI' then 'Primary' else r.RelationshipCode end as 'RelationshipCode'
+							,case r.relationshipcode when 'PI' then 'Primary' when 'PA' then 'Alternate' else r.RelationshipCode end as 'RelationshipCode'
                         from HHS_parent p
                         inner join hhs_relationships r on p.id = r.relationshipid
                         where r.casenumber = {0}
@@ -129,17 +129,24 @@ namespace OPI.HHS.Core
             var rtn = new List<ReferralSearchResult>();
             using (var ctx = new DAL.EFContext())
             {
-                var sqlQuery = string.Format(@"SELECT DISTINCT r.Id as 'ReferralId'
+                var sqlQuery = string.Format(@";with CaseCounts(Referral, OpenCases)
+                        as( 
+	                        SELECT DISTINCT c.ReferralId, count( distinct CaseNumber)
+	                        FROM HHS_Case c
+	                        GROUP BY c.ReferralId
+                        )
+                        SELECT DISTINCT r.Id as 'ReferralId'
 	                        ,r.Source
 	                        ,r.LastName, r.FirstName, r.MiddleName
 	                        ,r.Gender
 	                        ,r.Race
 	                        ,r.Ethnicity
 	                        ,r.DOBText as 'DOB'
+	                        ,c.OpenCases as 'Cases'
                         from HHS_Referrals r
+                        LEFT OUTER JOIN CaseCounts c on r.Id = c.Referral
                         where r.LastName like '{0}%'
                         order by r.LastName, r.FirstName", lastName);
-
                 rtn = ctx.Database.SqlQuery<ReferralSearchResult>(sqlQuery).ToList();
             }
             return rtn;
@@ -370,6 +377,12 @@ namespace OPI.HHS.Core
                     .Distinct()
                     .Where(x => x.ReferralId == Id)
                     .FirstOrDefault<ReferralSearchResult>();
+                //get the # of cases
+                if (rtn != null)
+                {
+                    var casecount = ctx.Database.SqlQuery<int>(string.Format(@"SELECT count( distinct CaseNumber) FROM HHS_Case where referralId = {0}", rtn.ReferralId.ToString())).First();
+                    rtn.Cases = int.Parse( casecount.ToString());
+                }
             }
             return rtn;
         }

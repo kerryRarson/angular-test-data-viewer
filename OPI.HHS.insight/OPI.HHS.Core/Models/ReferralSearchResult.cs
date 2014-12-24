@@ -28,5 +28,6 @@ namespace OPI.HHS.Core.Models
                 return rtn.Trim();
             }
         }
+        public int Cases { get; set; }
     }
 }
