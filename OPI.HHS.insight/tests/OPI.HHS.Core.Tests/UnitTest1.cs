@@ -32,7 +32,16 @@ namespace OPI.HHS.Core.Tests
             
 
         }
-
+        [TestMethod]
+        public void GetCities()
+        {
+            using (var svc = new HHSService())
+            {
+                var cities = svc.GetCities("IL");
+                Assert.IsNotNull(cities);
+                Assert.IsTrue(cities.Count() > 0);
+            }
+        }
         [TestMethod]
         public void GetAddrsByStateCity()
         {
