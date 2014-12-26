@@ -57,7 +57,7 @@
                 $scope.loading = false;
             }
             ).error(function (data, status, headers, config) {
-                $scope.ajaxError = data.MessageDetails;
+                $scope.ajaxError = data.MessageDetail;
                 $scope.showAjaxError = true;
                 $scope.loading = false;
             });
