@@ -63,7 +63,7 @@
                     </tr>
                     <tr ng-repeat="a in addresses">
                         <td>{{a.Type}}</td>
-                        <td><a ng-click="rowClick(a.Line1,a.Line2,a.City,a.State)">{{a.FormattedAddress}}<span class="glyphicon glyphicon-map-marker"></span></a></td>
+                        <td><a ng-click="rowClick(a.Line1,a.Line2,a.City,a.State)">{{a.FormattedAddress}}<span class="glyphicon glyphicon-map-marker" style="cursor:pointer;"></span></a></td>
                         <td>{{a.Phone}}</td>
                     </tr>
                 </table>
