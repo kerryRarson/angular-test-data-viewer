@@ -11,6 +11,7 @@ namespace OPI.HHS.Core
     public interface IHHSService
     {
         IEnumerable<string> GetStates();
+        IEnumerable<string> GetCities(string st);
         string GetCountyByCase(string caseNum);
         IEnumerable<AddressSearchResult> SearchByCityState(string st, string city);
         IEnumerable<AddressSearchResult> SearchByCase(int caseNumber);
@@ -19,8 +20,10 @@ namespace OPI.HHS.Core
         IEnumerable<ReferralSearchResult> GetReferralsByCase(string caseNum);
         IEnumerable<Program> GetProgramsByCase(string caseNum);
         IEnumerable<Program> GetProgramsByReferral(int id);
+        IEnumerable<ProgramImportDetail> GetImportProgramsByReferral(int id);
         IEnumerable<AddressSearchResult> GetAddressesByCase(int caseNum);
         IEnumerable<AddressSearchResult> GetAddressesByReferral(int id);
         ReferralSearchResult GetReferral(int Id);
+
     }
 }

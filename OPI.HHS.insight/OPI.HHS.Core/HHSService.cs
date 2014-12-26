@@ -11,6 +11,29 @@ namespace OPI.HHS.Core
     {
 
         /// <summary>
+        /// Gets the import programs by referral.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<ProgramImportDetail> GetImportProgramsByReferral(int Id)
+        {
+            var rtn = new List<ProgramImportDetail>();
+            using (var ctx = new DAL.EFContext())
+            {
+                var sql = string.Format(@"select p.EligiblityStatus, 
+	                        p.ProgramCode,convert(varchar(12),p.StartDate,101) as 'StartDate',convert(varchar(12),p.EndDate,101) as 'EndDate', p.CaseNumber, p.FileName 
+	                        from HHS_Programs p where Referral = {0}
+                        order by SUBSTRING(filename,5,4) desc --year
+	                        ,SUBSTRING(filename,1,2) desc ---month
+	                        ,SUBSTRING(FileName,3,2) desc ---day",Id.ToString());
+                rtn = ctx.Database.SqlQuery<ProgramImportDetail>(sql).ToList();
+            }
+
+            return rtn;
+
+        }
+
+        /// <summary>
         /// Gets the programs by case.
         /// </summary>
         /// <param name="caseNum">The case number.</param>
@@ -236,6 +259,28 @@ namespace OPI.HHS.Core
             return rtn;
         }
 
+        /// <summary>
+        /// Gets the cities.
+        /// </summary>
+        /// <param name="st">List of cities in the passed in state</param>
+        /// <returns></returns>
+        public IEnumerable<string> GetCities(string st) {
+            List<string> rtn = new List<string>();
+            using (var ctx = new DAL.EFContext())
+            {
+                rtn =  ctx.HHS_Addresses
+                    .Where(a => a.State == st)
+                    .Select(a => a.City)
+                    .Distinct()
+                    .OrderBy(a => a)
+                    .ToList();
+            }
+            return rtn;
+        }
+        /// <summary>
+        /// Gets the states.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> GetStates()
         {
             List<string> rtn = new List<string>();
