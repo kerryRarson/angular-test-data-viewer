@@ -6,8 +6,10 @@
         ajaxError: '',
         searchState: '',
         searchCity: '',
+        cityFocus: false,
         searchResults: [],
-        states: []
+        states: [],
+        cities: [],
     };
     $scope.searchByCity = function () {
         $scope.searching = true;
@@ -17,9 +19,8 @@
                 $scope.searchResults = data;
                 $scope.searching = false;
                 $scope.loaded = true;
-            }
-            ).error(function (data, status, headers, config) {
-                $scope.ajaxError = data.ExceptionMessage;
+            }).error(function (data, status, headers, config) {
+                $scope.ajaxError = data.MessageDetail;
                 $scope.showAjaxError = true;
                 $scope.searching = false;
             });
@@ -32,38 +33,59 @@
         var returnUrl = '#/referral/' + referralId;
         return returnUrl;
     };
-
+    $scope.stateChange = function (val) {
+        $scope.searchCity = '';
+        getCities(val);
+        //raise the event to set focus on the city textbox
+        $scope.$broadcast('cityFocus');
+    };
     function getStates() {
+        $scope.searchState = 'MT';//default to MT
         $http.get('api/search/getstates')
             .success(function (data, status, headers, config) {
                 $scope.states = data;
-                $scope.searchState = 'MT';
             })
             .error(function (data, status, headers, config) {
-                $scope.ajaxError = data.ExceptionMessage;
+                $scope.ajaxError = data.MessageDetail;
                 $scope.showAjaxError = true;
             });
     };
+    function getCities(st) {
+        $http.get('api/search/getcities?st=' + st)
+            .success(function (data, status, headers, config) {
+                $scope.cities = data;
+            })
+            .error(function (data, status, headers, config) {
+                $scope.ajaxError = data.MessageDetail;
+                $scope.showAjaxError = true;
+            });
+    }
     function init() {
         //populate the state dropdown
         getStates();
+        getCities($scope.searchState);
     }
     init();
+
     //Modal functions
-    $scope.launchMap = function (lat, lon) {
-        // from http://www.kendar.org/?p=/tutorials/angularjs/part03
+    $scope.launchMap = function (lat, lon, title) {
         //alert('lat-' + lat);
-        $scope.valueToPass = lat + "/" + lon;
+        $scope.lat = lat;
+        $scope.lon = lon;
+        $scope.title = title;
 
         var modalInstance = $modal.open({
-            templateUrl: '/scripts/theDialogPartial.html',
+            templateUrl: '/scripts/partials/theDialogPartial.html',
+            size: 'lg',
             controller: 'TheDialogController',
             resolve: {
-                aValue: function () {
-                    return $scope.valueToPass;
-                }
+                lat: function () { return $scope.lat; },
+                lon: function () { return $scope.lon; },
+                title: function () { return $scope.title; }
             }
         });
+        showLocation($scope.lat, $scope.lon, 'XXXX');
+
         modalInstance.result.then(function (paramFromDialog) {
             $scope.paramFromDialog = paramFromDialog;
         });

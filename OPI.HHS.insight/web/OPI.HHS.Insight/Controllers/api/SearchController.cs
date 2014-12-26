@@ -23,6 +23,15 @@ namespace OPI.HHS.Insight.Controllers.api
             return rtn;
         }
 
+        [HttpGet]
+        [Route("api/search/getcities")]
+        public IEnumerable<string> GetCities(string st)
+        {
+            List<string> rtn = new List<string>();
+            rtn = _svc.GetCities(st).ToList();
+            return rtn;
+        }
+
         [HttpPost]
         [Route("api/search/bycity")]
         public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCity(string st, string city)

@@ -11,7 +11,7 @@
             <form name="searchForm" ng-submit="searchByName()" class="form-inline">
                 <fieldset ng-disabled="searching">    
                     <div class="form-group">
-                    <input type="text" placeholder="Name" ng-model="searchForm.searchName" ng-bind="searchForm.searchName" required class="form-control" />
+                        <input type="text" placeholder="Name" ng-model="searchForm.searchName" ng-bind="searchForm.searchName" required class="form-control" autofocus />
                     <button type="submit" class="btn btn-primary">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     </button>
@@ -32,6 +32,7 @@
                         <tr>
                             <th>Referral</th>
                             <th>Name</th>
+                            <th>Cases</th>
                             <th>DOB</th>
                             <th>Gender</th>
                             <th>Race</th>
@@ -41,6 +42,7 @@
                             <tr data-ng-repeat="r in searchResults">
                                 <td><a ng-href="{{ buildReferralUrl(r.ReferralId)}}">{{r.ReferralId}}</a></td>
                                 <td>{{ r.FormattedName }}</td>
+                                <td><a ng-click="showCases(r.ReferralId)"><span class="badge" style="cursor:pointer">{{r.Cases}}</span></a></td>
                                 <td>{{ r.DOB }}</td>
                                 <td>{{ r.Gender }}</td>
                                 <td>{{ r.Race }}</td>

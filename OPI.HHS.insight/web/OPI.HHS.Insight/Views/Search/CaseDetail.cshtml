@@ -92,7 +92,10 @@
                         <td><a ng-href="{{ buildReferralUrl(p.Referral)}}">{{p.Referral}}</a></td>
                         <td>{{p.StartDateText}}</td>
                         <td>{{p.EndDateText}}</td>
-                        <td>{{p.EligiblityStatusText}}</td>
+                        <td>
+                            <span ng-show="p.EligiblityStatus == 'C'" class="glyphicon glyphicon-minus-sign"></span>
+                            <span ng-show="p.EligiblityStatus == 'O'" class="glyphicon glyphicon-ok-sign"></span>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -100,7 +103,7 @@
     </div>
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading">Addresses</div>
+            <div class="panel-heading"><strong>{{a.length}}</strong> Addresses</div>
             <div class="panel-body">
                 <table class="table table-striped table-condensed">
                     <tr>
@@ -111,7 +114,7 @@
                     </tr>
                     <tr ng-repeat="a in addresses">
                         <td><a ng-href="{{ buildReferralUrl(a.Referral)}}">{{a.Referral}}</a></td>
-                        <td>{{a.FormattedAddress}}</td>
+                        <td>{{a.FormattedAddress}}<span class="glyphicon glyphicon-map-marker" ng-click="showMapModal(a.Line1,a.Line2,a.City,a.State)"></span></td>
                         <td>{{a.Type}}</td>
                         <td>{{a.Phone}}</td>
                     </tr>
@@ -119,4 +122,12 @@
             </div>
         </div>
     </div>
+</div>
+
+<div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-body">
+            <div class="row">This is the modal!</div>
+        </div>
+    </script>
 </div>

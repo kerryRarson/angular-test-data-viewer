@@ -6,11 +6,21 @@ demoApp.controller('CaseSearchController', CaseSearchController);
 demoApp.controller('NameSearchController', NameSearchController);
 demoApp.controller('CaseDetailController', CaseDetailController);
 demoApp.controller('ReferralDetailController', ReferralDetailController);
+demoApp.controller('ProgramListController', ProgramListController);
 //TODO refactor this to it's own controller .js
-demoApp.controller('TheDialogController', function ($scope, $modalInstance, aValue) {
-    $scope.valuePassed = aValue;
+demoApp.controller('TheDialogController', function ($scope, $modalInstance, lat, lon, title) {
+    $scope.valuePassed = lat;
+    $scope.valuePassed = lon;
+    $scope.title = title;
     $scope.close = function () {
         $modalInstance.close("Someone Closed Me");
+    };
+});
+demoApp.directive('focusOn', function () {
+    return function (scope, elem, attr) {
+        scope.$on(attr.focusOn, function (e) {
+            elem[0].focus();
+        });
     };
 });
 //demoApp.controller('LoginController', LoginController);

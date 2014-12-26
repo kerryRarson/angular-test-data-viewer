@@ -11,6 +11,16 @@ namespace OPI.HHS.Core.Tests
     public class Search
     {
         [TestMethod]
+        public void GetProgramImportRows()
+        {
+            using (var svc = new HHSService())
+            {
+                var actual = svc.GetImportProgramsByReferral(1762453);
+                Assert.IsNotNull(actual);
+                Console.WriteLine("{0} rows returned.", actual.Count());
+            }
+        }
+        [TestMethod]
         public void GetStates()
         {
             using (var ctx = new HHSService())

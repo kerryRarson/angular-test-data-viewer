@@ -4,6 +4,7 @@
     $scope.loaded = false;
     $scope.ReferralId = '';
     $scope.addresses = [];
+    $scope.programs = [];
     $scope.showMap = false;
     $scope.Lat = '';
     $scope.Lon = '';
@@ -12,6 +13,7 @@
     $scope.init = function (referralId) {
         $scope.referralId = referralId;
         getAddresses(referralId);
+        getPrograms(referralId);
         $scope.loaded = true;
     }
     $scope.rowClick = function (line1, line2, city, state) {
@@ -22,7 +24,7 @@
             .success(function (data, status, headers, config) {
                 $scope.Lat = data.Lat;
                 $scope.Lon = data.Lon;
-                showLocation(data.Lat, data.Lon);
+                showLocation(data.Lat, data.Lon, data.FormattedAddress);
                 $scope.searching = false;
             }
             ).error(function (data, status, headers, config) {
@@ -38,7 +40,17 @@
                 $scope.addresses = data;
             })
             .error(function (data, status, headers, config) {
-                $scope.ajaxError = data.ExceptionMessage;
+                $scope.ajaxError = data.MessageDetail;
+                $scope.showAjaxError = true;
+            });
+    }
+    function getPrograms(referralId) {
+        $http.get('api/search/getprogramsbyreferral?id=' + referralId)
+            .success(function (data, status, headers, config) {
+                $scope.programs = data;
+            })
+            .error(function (data, status, headers, config) {
+                $scope.ajaxError = data.MessageDetail;
                 $scope.showAjaxError = true;
             });
     }

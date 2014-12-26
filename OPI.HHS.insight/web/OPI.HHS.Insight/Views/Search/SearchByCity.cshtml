@@ -11,8 +11,8 @@
             <form name="searchForm" ng-submit="searchByCity()" class="form-inline">
                 <fieldset ng-disabled="searching">
                     <div class="form-group">
-                        <select ng-options="st for st in states" ng-model="searchState" required class="form-control"></select>
-                        <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control"/>
+                        <select ng-options="st for st in states" ng-model="searchState" required class="form-control" ng-change="stateChange(searchState)"></select>
+                        <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control" typeahead="city for city in cities|filter:$viewValue" focus-on="cityFocus"/>
                         <button type="submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </button>
@@ -28,29 +28,27 @@
 
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading">{{ searchResults.length}} Addresses</div>
-            <div class="panel-body">
-                <table class="table table-striped table-responsive">
-                        <tr>
-                            <th>Case #</th>
-                            <th>Address</th>
-                            <th>Phone</th>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><input type="text" ng-model="cityFilter" placeholder="Filter" class="form-control" ng-show="loaded" /></td>
-                            <td></td>
-                        </tr>
-                        <tbody>
-                            <tr data-ng-repeat="r in searchResults | filter:cityFilter">
-                                <td><a ng-href="{{ buildPeopleUrl(r.Case)}}">{{r.Case}}</a></td>
-                                <td>{{ r.FormattedAddress }}</td>
-                                <td>{{ r.Phone }}</td>
-                                <td><a ng-show="r.Lat != ''" ng-click="launchMap(r.Lon, r.Lat)"><span class="glyphicon glyphicon-map-marker"></span></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </div>
+            <div class="panel-heading"><strong>{{ searchResults.length}}</strong> Addresses</div>
+            <div class="panel-body"></div>
+            <table class="table table-striped table-responsive">
+                <tr>
+                    <th>Case #</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" ng-model="cityFilter" placeholder="Filter" class="form-control" ng-show="loaded" /></td>
+                    <td></td>
+                </tr>
+                <tbody>
+                    <tr data-ng-repeat="r in searchResults | filter:cityFilter">
+                        <td><a ng-href="{{ buildPeopleUrl(r.Case)}}">{{r.Case}}</a></td>
+                        <td>{{ r.FormattedAddress }} <a ng-show="r.Lat != ''" ng-click="launchMap(r.Lon, r.Lat,'Case# ' + r.Case)"><span class="glyphicon glyphicon-map-marker"></span></a></td>
+                        <td>{{ r.Phone }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
