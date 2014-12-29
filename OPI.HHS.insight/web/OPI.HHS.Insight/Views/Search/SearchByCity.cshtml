@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5">
+        
             <form name="searchForm" ng-submit="searchByCity()" class="form-inline">
                 <fieldset ng-disabled="searching">
                     <div class="form-group">
@@ -16,12 +16,10 @@
                         <button type="submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </button>
+                        <div ng-show="searching" class="loading"><img class="ajax-indicator" src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
                     </div>
                 </fieldset>
             </form>
-        </div>
-        <div class="col-md-7">
-            <div ng-show="searching"><img class="ajax-indicator" src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
         </div>
     </div>
     <p></p>

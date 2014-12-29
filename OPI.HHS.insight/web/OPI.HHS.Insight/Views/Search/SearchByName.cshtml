@@ -7,21 +7,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        
             <form name="searchForm" ng-submit="searchByName()" class="form-inline">
-                <fieldset ng-disabled="searching">    
+                <fieldset ng-disabled="searching" style="text-wrap:avoid;">    
                     <div class="form-group">
-                        <input type="text" placeholder="Name" ng-model="searchForm.searchName" ng-bind="searchForm.searchName" required class="form-control" autofocus />
-                    <button type="submit" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </button>
+                        <span>
+                            <input type="text" placeholder="Name" ng-model="searchForm.searchName" ng-bind="searchForm.searchName" required class="form-control" autofocus />
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                         </span>
+                        <div ng-show="searching" class="loading"><img src="~/Content/images/progress.gif" class="ajax-indicator" />&nbsp; Searching...</div>
                     </div>
                 </fieldset>
             </form>
-        </div>
-        <div class="col-md-7">
-            <div ng-show="searching"><img src="~/Content/images/progress.gif" class="ajax-indicator" />&nbsp; Searching...</div>
-        </div>
+            
     </div>
     <p></p>
     <div class="row">
@@ -52,3 +52,5 @@
                     </table>
             </div>
         </div>
+    </div>
+</div>

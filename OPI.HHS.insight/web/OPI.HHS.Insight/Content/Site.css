@@ -9,6 +9,7 @@
     padding-right: 15px;
 }
 
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -25,4 +26,8 @@ textarea {
 .ajax-indicator{
     width:26px;
     height:26px;
+}
+.loading{
+    display:inline-block;
+    padding-left:8px;
 }

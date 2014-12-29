@@ -20,7 +20,7 @@
                 $scope.searching = false;
                 $scope.loaded = true;
             }).error(function (data, status, headers, config) {
-                $scope.ajaxError = data.MessageDetail;
+                $scope.ajaxError = data.ExceptionMessage;
                 $scope.showAjaxError = true;
                 $scope.searching = false;
             });
@@ -46,7 +46,7 @@
                 $scope.states = data;
             })
             .error(function (data, status, headers, config) {
-                $scope.ajaxError = data.MessageDetail;
+                $scope.ajaxError = data.ExceptionMessage;
                 $scope.showAjaxError = true;
             });
     };
@@ -56,7 +56,7 @@
                 $scope.cities = data;
             })
             .error(function (data, status, headers, config) {
-                $scope.ajaxError = data.MessageDetail;
+                $scope.ajaxError = data.ExceptionMessage;
                 $scope.showAjaxError = true;
             });
     }
