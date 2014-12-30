@@ -1,4 +1,4 @@
-﻿var CitySearchController = function ($scope, $http, $modal) {
+﻿var CitySearchController = function ($scope, $http, $modal, searchFactory) {
     $scope.models = {
         searching: false,
         loaded: false,
@@ -40,26 +40,26 @@
         $scope.$broadcast('cityFocus');
     };
     function getStates() {
-        $scope.searchState = 'MT';//default to MT
-        $http.get('api/search/getstates')
-            .success(function (data, status, headers, config) {
-                $scope.states = data;
-            })
-            .error(function (data, status, headers, config) {
-                $scope.ajaxError = data.ExceptionMessage;
-                $scope.showAjaxError = true;
-            });
+        searchFactory.getStates().then(function (states) {
+            $scope.searchState = 'MT';//default to MT
+            $scope.states = states;
+        }, processError);
     };
     function getCities(st) {
-        $http.get('api/search/getcities?st=' + st)
-            .success(function (data, status, headers, config) {
-                $scope.cities = data;
-            })
-            .error(function (data, status, headers, config) {
-                $scope.ajaxError = data.ExceptionMessage;
-                $scope.showAjaxError = true;
-            });
-    }
+        searchFactory.getCities(st).then(function (cities) {
+            $scope.cities = cities;
+        }, processError);
+    };
+    function processError(error) {
+        $scope.showAjaxError = true;
+        if (error.data != null) {
+            $scope.ajaxError = error.data.ExceptionMessage;
+        } else {
+            $scope.ajaxError = error.statusText;
+        }
+
+
+    };
     function init() {
         //populate the state dropdown
         getStates();
@@ -96,4 +96,4 @@
 
 
 // The inject property of every controller (and pretty much every other type of object in Angular) needs to be a string array equal to the controllers arguments, only as strings
-CitySearchController.$inject = ['$scope', '$http', '$modal'];
+CitySearchController.$inject = ['$scope', '$http', '$modal', 'searchFactory'];

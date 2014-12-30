@@ -25,7 +25,7 @@ demoApp.directive('focusOn', function () {
 });
 //demoApp.controller('LoginController', LoginController);
 //demoApp.controller('RegisterController', RegisterController);
-
+demoApp.factory('searchFactory', searchFactory);
 //demoApp.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 //demoApp.factory('LoginFactory', LoginFactory);
 //demoApp.factory('RegistrationFactory', RegistrationFactory);
