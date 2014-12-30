@@ -13,17 +13,11 @@
     };
     $scope.searchByCity = function () {
         $scope.searching = true;
-        var data = {st: $scope.searchState, city: $scope.searchByCity};
-        $http.post('/api/search/bycity?st=' + $scope.searchState + '&city=' + $scope.searchCity, data)
-            .success(function (data, status,         headers, config) {
-                $scope.searchResults = data;
-                $scope.searching = false;
-                $scope.loaded = true;
-            }).error(function (data, status, headers, config) {
-                $scope.ajaxError = data.ExceptionMessage;
-                $scope.showAjaxError = true;
-                $scope.searching = false;
-            });
+        searchFactory.searchByCity($scope.searchState, $scope.searchCity).then(function (results){
+            $scope.searchResults = results;
+            $scope.searching = false;
+            $scope.loaded = true;
+        }, processError);
     };
     $scope.buildPeopleUrl = function (caseNum){
         var returnUrl = '#/casedetail/' + caseNum;
@@ -43,6 +37,7 @@
         searchFactory.getStates().then(function (states) {
             $scope.searchState = 'MT';//default to MT
             $scope.states = states;
+            getCities($scope.searchState);
         }, processError);
     };
     function getCities(st) {
@@ -52,6 +47,7 @@
     };
     function processError(error) {
         $scope.showAjaxError = true;
+        $scope.searching = false;
         if (error.data != null) {
             $scope.ajaxError = error.data.ExceptionMessage;
         } else {
