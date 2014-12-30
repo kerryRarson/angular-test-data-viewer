@@ -1,4 +1,5 @@
-﻿var _map = null;
+﻿//TODO look at http://ngmodules.org/modules/angularjs-google-maps
+var _map = null;
 var _lat = '';
 var _lon = '';
 function showLocation(lat, lon, title) {

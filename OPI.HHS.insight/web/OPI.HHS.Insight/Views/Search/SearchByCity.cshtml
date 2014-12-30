@@ -7,20 +7,18 @@
         </div>
     </div>
     <div class="row">
-        
-            <form name="searchForm" ng-submit="searchByCity()" class="form-inline">
-                <fieldset ng-disabled="searching">
-                    <div class="form-group">
-                        <select ng-options="st for st in states" ng-model="searchState" required class="form-control" ng-change="stateChange(searchState)"></select>
-                        <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control" typeahead="city for city in cities|filter:$viewValue" focus-on="cityFocus"/>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
-                        <div ng-show="searching" class="loading"><img class="ajax-indicator" src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
+        <form name="searchForm" ng-submit="searchByCity()" class="form-inline">
+            <fieldset ng-disabled="searching">
+                <div class="form-group">
+                    <select ng-options="st for st in states" ng-model="searchState" required class="form-control" ng-change="stateChange(searchState)"></select>
+                    <input ng-model="searchCity" ng-bind="searchCity" type="text" required placeholder="City" class="form-control" typeahead="city for city in cities|filter:$viewValue" focus-on="cityFocus"/>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                    <div ng-show="searching" class="loading"><img class="ajax-indicator" src="~/Content/images/progress.gif" />&nbsp; Searching...</div>
+                </div>
+            </fieldset>
+        </form>
     </div>
     <p></p>
 
