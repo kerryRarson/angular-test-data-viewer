@@ -1,4 +1,4 @@
-﻿var CitySearchController = function ($scope, $http, $modal, searchFactory) {
+﻿var CitySearchController = function ($scope, $modal, searchFactory) {
     $scope.models = {
         searching: false,
         loaded: false,
@@ -92,4 +92,4 @@
 
 
 // The inject property of every controller (and pretty much every other type of object in Angular) needs to be a string array equal to the controllers arguments, only as strings
-CitySearchController.$inject = ['$scope', '$http', '$modal', 'searchFactory'];
+CitySearchController.$inject = ['$scope', '$modal', 'searchFactory'];

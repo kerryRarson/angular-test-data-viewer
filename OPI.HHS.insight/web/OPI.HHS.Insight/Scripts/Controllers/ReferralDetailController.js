@@ -1,4 +1,4 @@
-﻿var ReferralDetailController = function ($scope, $http) {
+﻿var ReferralDetailController = function ($scope, searchFactory) {
     $scope.showAjaxError = false;
     $scope.ajaxError = '';
     $scope.loaded = false;
@@ -18,43 +18,33 @@
     }
     $scope.rowClick = function (line1, line2, city, state) {
         $scope.showMap = true;
-
-        var data = { line1: line1, line2: line2, city: city, state: state };
-        $http.post('/api/geocode?line1=' + line1 + '&line2=' + line2 + '&city=' + city + '&state=' + state, data)
-            .success(function (data, status, headers, config) {
-                $scope.Lat = data.Lat;
-                $scope.Lon = data.Lon;
-                showLocation(data.Lat, data.Lon, data.FormattedAddress);
-                $scope.searching = false;
-            }
-            ).error(function (data, status, headers, config) {
-                $scope.ajaxError = data.MessageDetails;
-                $scope.showAjaxError = true;
-                $scope.searching = false;
-            });
-
-    }
+        searchFactory.geoCode(line1, line2, city, state).then(function (results) {
+            $scope.Lat = results.Lat;
+            $scope.Lon = results.Lon;
+            showLocation($scope.Lat,$scope.Lon, results.FormattedAddress);
+            $scope.searching = false;
+        }, processError);
+    };
     function getAddresses(referralId) {
-        $http.get('api/search/getaddrsbyreferral?id=' + referralId)
-            .success(function (data, status, headers, config) {
-                $scope.addresses = data;
-            })
-            .error(function (data, status, headers, config) {
-                $scope.ajaxError = data.MessageDetail;
-                $scope.showAjaxError = true;
-            });
-    }
+        searchFactory.addrsByReferral(referralId).then(function ( results ){
+            $scope.addresses = results;
+        },processError);
+    };
+        
     function getPrograms(referralId) {
-        $http.get('api/search/getprogramsbyreferral?id=' + referralId)
-            .success(function (data, status, headers, config) {
-                $scope.programs = data;
-            })
-            .error(function (data, status, headers, config) {
-                $scope.ajaxError = data.MessageDetail;
-                $scope.showAjaxError = true;
-            });
+        searchFactory.programsByReferral(referralId).then(function (results) {
+            $scope.programs = results;
+        }, processError);
     }
-
+    function processError(error) {
+        $scope.showAjaxError = true;
+        $scope.searching = false;
+        if (error.data != null) {
+            $scope.ajaxError = error.data.ExceptionMessage;
+        } else {
+            $scope.ajaxError = error.statusText;
+        }
+    };
 }
 // The inject property of every controller (and pretty much every other type of object in Angular) needs to be a string array equal to the controllers arguments, only as strings
-ReferralDetailController.$inject = ['$scope', '$http'];
+ReferralDetailController.$inject = ['$scope', 'searchFactory'];

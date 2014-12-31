@@ -31,3 +31,8 @@ textarea {
     display:inline-block;
     padding-left:8px;
 }
+
+.col{
+    float:left;
+    padding-right: 8px;
+}
