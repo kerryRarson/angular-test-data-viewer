@@ -17,5 +17,13 @@ namespace OPI.HHS.Insight.Controllers
         {
             return View();
         }
+        public ActionResult City()
+        {
+            return View();
+        }
+        public ActionResult CaseExtract()
+        {
+            return View();
+        }
     }
 }

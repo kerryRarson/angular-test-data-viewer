@@ -88,6 +88,14 @@ var configFunction = function ($routeProvider, $httpProvider) {
             templateUrl: 'report/index',
             controller: ReportController
         })
+        .when('/reportByCity', {
+            templateUrl: 'report/city',
+            controller: ReportController
+        })
+        .when('/caseExtract', {
+            templateUrl: 'report/CaseExtract',
+            controller: ReportController
+        })
         .otherwise('/citySearch', {
             templateUrl: 'search/searchbycity',
             controller: CitySearchController

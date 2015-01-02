@@ -8,9 +8,8 @@
     };
     $scope.init = function () {
         $scope.searching = false;
-        $scope.ajaxError = "YO, this is initialized!";
+        $scope.ajaxError = "TODO:  This controller needs to be finished.";
         $scope.showAjaxError = true;
-        alert('yo ! ready!');
     };
     function processError(error) {
         $scope.showAjaxError = true;
