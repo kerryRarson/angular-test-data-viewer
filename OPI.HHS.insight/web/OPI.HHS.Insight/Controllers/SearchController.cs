@@ -27,6 +27,10 @@ namespace OPI.HHS.Insight.Controllers
         {
             return View();
         }
+        public ActionResult SearchByParent()
+        {
+            return View();
+        }
         public ActionResult CaseDetail(string caseNum)
         {
             ViewBag.CaseNumber = caseNum;

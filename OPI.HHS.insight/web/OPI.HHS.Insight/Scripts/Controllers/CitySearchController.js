@@ -1,6 +1,6 @@
 ﻿var CitySearchController = function ($scope, $modal, searchFactory) {
     $scope.models = {
-        searching: false,
+        searching: true,
         loaded: false,
         showAjaxError: false,
         ajaxError: '',
@@ -34,10 +34,12 @@
         $scope.$broadcast('cityFocus');
     };
     function getStates() {
+        $scope.searching = true;
         searchFactory.getStates().then(function (states) {
             $scope.searchState = 'MT';//default to MT
             $scope.states = states;
             getCities($scope.searchState);
+            $scope.searching = false;
         }, processError);
     };
     function getCities(st) {

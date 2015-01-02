@@ -1,12 +1,13 @@
 ﻿var demoApp = angular.module('demoApp', ['ngRoute', 'ui.bootstrap']);
 
-demoApp.controller('LandingPageController', LandingPageController);
 demoApp.controller('CitySearchController', CitySearchController);
 demoApp.controller('CaseSearchController', CaseSearchController);
 demoApp.controller('NameSearchController', NameSearchController);
 demoApp.controller('CaseDetailController', CaseDetailController);
 demoApp.controller('ReferralDetailController', ReferralDetailController);
 demoApp.controller('ProgramListController', ProgramListController);
+demoApp.controller('ParentSearchController', ParentSearchController);
+demoApp.controller('ReportController', ReportController);
 //TODO refactor this to it's own controller .js
 demoApp.controller('TheDialogController', function ($scope, $modalInstance, lat, lon, title) {
     $scope.valuePassed = lat;
@@ -75,9 +76,21 @@ var configFunction = function ($routeProvider, $httpProvider) {
             templateUrl: 'search/searchbyname',
             controller: NameSearchController
         })
+        .when('/parentSearch', {
+            templateUrl: 'search/searchbyparent',
+            controller: ParentSearchController
+        })
         .when('/referral/:id', {
             templateUrl: function (params) { return '/search/referraldetail?id=' + params.id; },
             controller: ReferralDetailController
+        })
+        .when('/reportHome', {
+            templateUrl: 'report/index',
+            controller: ReportController
+        })
+        .otherwise('/citySearch', {
+            templateUrl: 'search/searchbycity',
+            controller: CitySearchController
         });
         //.when('/routeThree', {
         //    templateUrl: 'routesDemo/three'
