@@ -15,26 +15,29 @@ namespace OPI.HHS.Insight.Controllers
         // GET: Search
         public ActionResult SearchByCity()
         {
+            ViewBag.Title = "Search by HHS Referral City";
             return View();
         }
 
         public ActionResult SearchByCase()
         {
+            ViewBag.Title = "Search by HHS Case #";
             return View();
         }
 
         public ActionResult SearchByName()
         {
+            ViewBag.Title = "Search By HHS Referral Name";
             return View();
         }
         public ActionResult SearchByParent()
         {
+            ViewBag.Title = "Search by Parent";
             return View();
         }
         public ActionResult CaseDetail(string caseNum)
         {
-            ViewBag.CaseNumber = caseNum;
-            
+            ViewBag.Title = string.Format("HHS Case #{0}", caseNum);
             return View();
         }
 

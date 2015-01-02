@@ -15,14 +15,17 @@ namespace OPI.HHS.Insight.Controllers
         // GET: Report
         public ActionResult Index()
         {
+            ViewBag.Title = "Reports";
             return View();
         }
         public ActionResult City()
         {
+            ViewBag.Title = "Report by City";
             return View();
         }
         public ActionResult CaseExtract()
         {
+            ViewBag.Title = "Extract by Case#";
             return View();
         }
     }
