@@ -37,6 +37,8 @@ namespace OPI.HHS.Insight.Controllers
         }
         public ActionResult CaseDetail(string caseNum)
         {
+            //used by ng-init to populate the child containers
+            ViewBag.CaseNumber = caseNum;
             ViewBag.Title = string.Format("HHS Case #{0}", caseNum);
             return View();
         }

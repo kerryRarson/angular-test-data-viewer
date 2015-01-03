@@ -30,27 +30,27 @@
             <div class="panel-heading">{{ searchResults.length}} HHS Referrals</div>
             <div class="panel-body">
                 <table class="table table-striped table-condensed">
-                        <tr>
-                            <th>Referral</th>
-                            <th>Name</th>
-                            <th>Cases</th>
-                            <th>DOB</th>
-                            <th>Gender</th>
-                            <th>Race</th>
-                            <th>Ethnicity</th>
+                    <tr>
+                        <th>Referral</th>
+                        <th>Name</th>
+                        <th>Cases</th>
+                        <th>DOB</th>
+                        <th>Gender</th>
+                        <th>Race</th>
+                        <th>Ethnicity</th>
+                    </tr>
+                    <tbody>
+                        <tr data-ng-repeat="r in searchResults">
+                            <td><a ng-href="{{ buildReferralUrl(r.ReferralId)}}">{{r.ReferralId}}</a></td>
+                            <td>{{ r.FormattedName }}</td>
+                            <td><a ng-click="showCases(r.ReferralId)"><span class="badge" style="cursor:pointer">{{r.Cases}}</span></a></td>
+                            <td>{{ r.DOB }}</td>
+                            <td>{{ r.Gender }}</td>
+                            <td>{{ r.Race }}</td>
+                            <td>{{ r.Ethnicity }}</td>
                         </tr>
-                        <tbody>
-                            <tr data-ng-repeat="r in searchResults">
-                                <td><a ng-href="{{ buildReferralUrl(r.ReferralId)}}">{{r.ReferralId}}</a></td>
-                                <td>{{ r.FormattedName }}</td>
-                                <td><a ng-click="showCases(r.ReferralId)"><span class="badge" style="cursor:pointer">{{r.Cases}}</span></a></td>
-                                <td>{{ r.DOB }}</td>
-                                <td>{{ r.Gender }}</td>
-                                <td>{{ r.Race }}</td>
-                                <td>{{ r.Ethnicity }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

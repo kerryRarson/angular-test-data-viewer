@@ -2,10 +2,10 @@
 <div class="container" ng-init="init('@Model.ReferralId')">
     <div class="row">
         <div class="col">
-            <h3><span>@Model.FormattedName</span></h3>
+            <h3><span class="glyphicon glyphicon-user"></span><span> @Model.FormattedName</span></h3>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col">
             <span class="label label-default">Referral Id</span><span> @Model.ReferralId</span>
@@ -70,7 +70,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="panel panel-default" ng-show="showMap">
         <div class="panel-heading">{{Lat}} / {{Lon}}</div>
         <div class="panel-body">
