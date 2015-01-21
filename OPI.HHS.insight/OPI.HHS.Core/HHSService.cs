@@ -20,7 +20,7 @@ namespace OPI.HHS.Core
             var rtn = new List<ProgramImportDetail>();
             using (var ctx = new DAL.EFContext())
             {
-                var sql = string.Format(@"select p.EligiblityStatus, 
+                var sql = string.Format(@"select p.Referral, p.EligiblityStatus, 
 	                        p.ProgramCode,convert(varchar(12),p.StartDate,101) as 'StartDate',convert(varchar(12),p.EndDate,101) as 'EndDate', p.CaseNumber, p.FileName 
 	                        from HHS_Programs p where Referral = {0}
                         order by SUBSTRING(filename,5,4) desc --year
@@ -32,6 +32,27 @@ namespace OPI.HHS.Core
             return rtn;
 
         }
+
+
+        public IEnumerable<ProgramImportDetail> GetImportProgramsByCaseNumber(int Id)
+        {
+            var rtn = new List<ProgramImportDetail>();
+            using (var ctx = new DAL.EFContext())
+            {
+                var sql = string.Format(@"select p.Referral, p.EligiblityStatus, 
+	                        p.ProgramCode,convert(varchar(12),p.StartDate,101) as 'StartDate',convert(varchar(12),p.EndDate,101) as 'EndDate', p.CaseNumber, p.FileName 
+	                        from HHS_Programs p where p.casenumber = {0}
+                        order by SUBSTRING(filename,5,4) desc --year
+	                        ,SUBSTRING(filename,1,2) desc ---month
+	                        ,SUBSTRING(FileName,3,2) desc ---day
+                            ,p.startdate desc", Id.ToString());
+                rtn = ctx.Database.SqlQuery<ProgramImportDetail>(sql).ToList();
+            }
+
+            return rtn;
+
+        }
+
 
         /// <summary>
         /// Gets the programs by case.

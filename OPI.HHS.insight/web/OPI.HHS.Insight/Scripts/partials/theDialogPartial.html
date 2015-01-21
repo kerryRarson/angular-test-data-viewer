@@ -6,7 +6,26 @@
     <h3 class="modal-title">{{ title }}</h3>
 </div>
 <div class="modal-body">
-    <div class="input-group">
-        <div class="input-group-addon" id="mapPlaceholder" style="height:400px;width:900px"></div>
-    </div>
+    <table class="table table-striped table-responsive">
+        <tr>
+            <th>Case</th>
+            <th>Referral</th>
+            <th>Eligibility</th>
+            <th>Program</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>File Name</th>
+        </tr>
+        <tbody>
+            <tr ng-repeat="p in programs">
+                <td>{{p.CaseNumber}}</td>
+                <td>{{p.Referral}}</td>
+                <td>{{p.EligibiltyStatus}}</td>
+                <td>{{p.ProgramCode}}</td>
+                <td>{{p.StartDate}}</td>
+                <td>{{p.EndDate}}</td>
+                <td>{{p.FileName}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

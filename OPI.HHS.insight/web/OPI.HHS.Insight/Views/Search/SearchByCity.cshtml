@@ -41,7 +41,7 @@
                 <tbody>
                     <tr data-ng-repeat="r in searchResults | filter:cityFilter">
                         <td><a ng-href="{{ buildPeopleUrl(r.Case)}}">{{r.Case}}</a></td>
-                        <td>{{ r.FormattedAddress }} <a ng-show="r.Lat != ''" ng-click="launchMap(r.Lon, r.Lat,'Case# ' + r.Case)"><span class="glyphicon glyphicon-map-marker" style="cursor:pointer;"></span></a></td>
+                        <td>{{ r.FormattedAddress }} <a ng-show="r.Lat != ''" ng-click="launchMap(r.Lon, r.Lat, r.Case)"><span class="glyphicon glyphicon-map-marker" style="cursor:pointer;"></span></a></td>
                         <td>{{ r.Phone }}</td>
                     </tr>
                 </tbody>

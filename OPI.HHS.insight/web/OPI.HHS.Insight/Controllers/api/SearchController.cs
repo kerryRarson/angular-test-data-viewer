@@ -77,6 +77,12 @@ namespace OPI.HHS.Insight.Controllers.api
             return _svc.GetParentsByCase(caseNum);
         }
         [HttpGet]
+        [Route("api/search/getimportProgramsBycase")]
+        public IEnumerable<ProgramImportDetail> GetImportProgramsByCase(int id)
+        {
+            return _svc.GetImportProgramsByCaseNumber(id);
+        }
+        [HttpGet]
         [Route("api/search/getprogramsbycase")]
         public IEnumerable<Program> GetProgramsByCase(string caseNum)
         {

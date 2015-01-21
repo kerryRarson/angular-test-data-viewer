@@ -67,6 +67,11 @@
             function (results) { return results.data;}
             );
     };
+    factory.importProgramsByCase = function (caseNumber) {
+        return $http.get(serviceBase + 'getimportProgramsBycase?id=' + caseNumber).then(
+            function (results ){return results.data;}
+            );
+    };
     /************************
     County
     ************************/

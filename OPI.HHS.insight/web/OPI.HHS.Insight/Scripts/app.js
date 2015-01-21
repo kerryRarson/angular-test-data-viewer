@@ -1,4 +1,4 @@
-﻿var demoApp = angular.module('demoApp', ['ngRoute', 'ui.bootstrap']);
+﻿var demoApp = angular.module('demoApp', ['ngRoute', 'ui.bootstrap', 'angularModalService']);
 
 demoApp.controller('CitySearchController', CitySearchController);
 demoApp.controller('CaseSearchController', CaseSearchController);
@@ -9,14 +9,18 @@ demoApp.controller('ProgramListController', ProgramListController);
 demoApp.controller('ParentSearchController', ParentSearchController);
 demoApp.controller('ReportController', ReportController);
 //TODO refactor this to it's own controller .js
-demoApp.controller('TheDialogController', function ($scope, $modalInstance, lat, lon, title) {
+demoApp.controller('TheDialogController', function ($scope, $modalInstance, lat, lon, caseNum, searchFactory) {
     $scope.valuePassed = lat;
     $scope.valuePassed = lon;
-    $scope.title = title;
+    $scope.title = 'Case #' + caseNum;
+    $scope.programs = [];
     $scope.close = function () {
         $modalInstance.close("Someone Closed Me");
     };
-});
+    searchFactory.importProgramsByCase(caseNum).then(function (results) {
+        $scope.programs = results;
+        }, processError);
+    });
 demoApp.directive('focusOn', function () {
     return function (scope, elem, attr) {
         scope.$on(attr.focusOn, function (e) {
@@ -117,3 +121,11 @@ var configFunction = function ($routeProvider, $httpProvider) {
 configFunction.$inject = ['$routeProvider', '$httpProvider'];
 
 demoApp.config(configFunction);
+
+function processError(error) {
+    if (error.data != null) {
+        console.log(error.data.ExceptionMessage);
+    } else {
+        console.log(error.statusText);
+    }
+};

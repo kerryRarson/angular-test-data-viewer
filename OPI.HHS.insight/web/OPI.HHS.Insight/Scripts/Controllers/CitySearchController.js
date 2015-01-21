@@ -66,11 +66,12 @@
     init();
 
     //Modal functions
-    $scope.launchMap = function (lat, lon, title) {
+    $scope.launchMap = function (lat, lon, caseNum) {
         //alert('lat-' + lat);
         $scope.lat = lat;
         $scope.lon = lon;
-        $scope.title = title;
+        $scope.caseNum = caseNum;
+        $scope.searchFactory = searchFactory;
 
         var modalInstance = $modal.open({
             templateUrl: '/scripts/partials/theDialogPartial.html',
@@ -79,10 +80,11 @@
             resolve: {
                 lat: function () { return $scope.lat; },
                 lon: function () { return $scope.lon; },
-                title: function () { return $scope.title; }
+                caseNum: function () { return $scope.caseNum; },
+                searchFactory: function () { return $scope.searchFactory; }
             }
         });
-        showLocation($scope.lat, $scope.lon, 'XXXX');
+        //showLocation($scope.lat, $scope.lon, 'XXXX');
 
         modalInstance.result.then(function (paramFromDialog) {
             $scope.paramFromDialog = paramFromDialog;

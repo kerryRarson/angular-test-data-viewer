@@ -11,11 +11,21 @@ namespace OPI.HHS.Core.Tests
     public class Search
     {
         [TestMethod]
-        public void GetProgramImportRows()
+        public void GetProgramImportRowsByReferral()
         {
             using (var svc = new HHSService())
             {
                 var actual = svc.GetImportProgramsByReferral(1762453);
+                Assert.IsNotNull(actual);
+                Console.WriteLine("{0} rows returned.", actual.Count());
+            }
+        }
+        [TestMethod]
+        public void GetProgramImportRowsByCase()
+        {
+            using (var svc = new HHSService())
+            {
+                var actual = svc.GetImportProgramsByCaseNumber(422567);
                 Assert.IsNotNull(actual);
                 Console.WriteLine("{0} rows returned.", actual.Count());
             }
