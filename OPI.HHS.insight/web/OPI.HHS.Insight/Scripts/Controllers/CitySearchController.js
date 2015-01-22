@@ -51,12 +51,14 @@
         $scope.showAjaxError = true;
         $scope.searching = false;
         if (error.data != null) {
-            $scope.ajaxError = error.data.ExceptionMessage;
+            if (error.data.ExceptionMessage != null) {
+                $scope.ajaxError = error.data.ExceptionMessage;
+            } else {
+                $scope.ajaxError = error.data.MessageDetail;
+            }
         } else {
             $scope.ajaxError = error.statusText;
         }
-
-
     };
     function init() {
         //populate the state dropdown
