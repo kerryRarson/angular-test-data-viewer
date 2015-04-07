@@ -30,7 +30,7 @@
     $scope.stateChange = function (val) {
         $scope.searchCity = '';
         getCities(val);
-        //raise the event to set focus on the city textbox
+        //raise the event to set focus on the city text box
         $scope.$broadcast('cityFocus');
     };
     function getStates() {
@@ -61,7 +61,7 @@
         }
     };
     function init() {
-        //populate the state dropdown
+        //populate the state drop down
         getStates();
         getCities($scope.searchState);
     }
@@ -87,15 +87,11 @@
             }
         });
         //showLocation($scope.lat, $scope.lon, 'XXXX');
-
         modalInstance.result.then(function (paramFromDialog) {
             $scope.paramFromDialog = paramFromDialog;
         });
 
     };
 }
-
-
-
 // The inject property of every controller (and pretty much every other type of object in Angular) needs to be a string array equal to the controllers arguments, only as strings
 CitySearchController.$inject = ['$scope', '$modal', 'searchFactory'];

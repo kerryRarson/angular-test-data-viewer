@@ -113,7 +113,12 @@
                     <tr ng-repeat="a in addresses">
                         <td><a ng-href="{{ buildReferralUrl(a.Referral)}}">{{a.Referral}}</a></td>
                         <td>{{a.FormattedAddress}}<span class="glyphicon glyphicon-map-marker" ng-click="showMapModal(a.Line1,a.Line2,a.City,a.State)" style="cursor:pointer;"></span></td>
-                        <td>{{a.Type}}</td>
+                        <td ng-show="a.Type == 'PA'" title="Physical">
+                            <span class="glyphicon glyphicon-home"></span>
+                        </td>
+                        <td ng-show="a.Type == 'MA'" title="Mailing">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </td>
                         <td>{{a.Phone}}</td>
                     </tr>
                 </table>

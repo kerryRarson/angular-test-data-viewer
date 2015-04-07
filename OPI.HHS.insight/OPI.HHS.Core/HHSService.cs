@@ -28,12 +28,14 @@ namespace OPI.HHS.Core
 	                        ,SUBSTRING(FileName,3,2) desc ---day",Id.ToString());
                 rtn = ctx.Database.SqlQuery<ProgramImportDetail>(sql).ToList();
             }
-
             return rtn;
-
         }
 
-
+        /// <summary>
+        /// Gets the import programs by case number.
+        /// </summary>
+        /// <param name="Id">HHS Case Number</param>
+        /// <returns></returns>
         public IEnumerable<ProgramImportDetail> GetImportProgramsByCaseNumber(int Id)
         {
             var rtn = new List<ProgramImportDetail>();
