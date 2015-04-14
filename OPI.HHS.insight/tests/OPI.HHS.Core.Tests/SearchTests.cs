@@ -83,6 +83,11 @@ namespace OPI.HHS.Core.Tests
                 var results = ctx.SearchByName("lars");
                 Assert.IsNotNull(results);
                 Console.WriteLine("found {0} HHS Referrals", results.Count());
+
+                //test the async method
+                results = ctx.SearchByNameAsync("lars");
+                Assert.IsNotNull(results);
+                Console.WriteLine("found {0} HHS Referrals from async search", results.Count());
             }
         }
         [TestMethod]

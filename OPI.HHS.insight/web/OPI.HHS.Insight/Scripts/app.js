@@ -1,15 +1,15 @@
-﻿var demoApp = angular.module('demoApp', ['ngRoute', 'ui.bootstrap', 'angularModalService']);
+﻿var HHSInsightApp = angular.module('HHSInsightApp', ['ngRoute', 'ui.bootstrap', 'angularModalService']);
 
-demoApp.controller('CitySearchController', CitySearchController);
-demoApp.controller('CaseSearchController', CaseSearchController);
-demoApp.controller('NameSearchController', NameSearchController);
-demoApp.controller('CaseDetailController', CaseDetailController);
-demoApp.controller('ReferralDetailController', ReferralDetailController);
-demoApp.controller('ProgramListController', ProgramListController);
-demoApp.controller('ParentSearchController', ParentSearchController);
-demoApp.controller('ReportController', ReportController);
+HHSInsightApp.controller('CitySearchController', CitySearchController);
+HHSInsightApp.controller('CaseSearchController', CaseSearchController);
+HHSInsightApp.controller('NameSearchController', NameSearchController);
+HHSInsightApp.controller('CaseDetailController', CaseDetailController);
+HHSInsightApp.controller('ReferralDetailController', ReferralDetailController);
+HHSInsightApp.controller('ProgramListController', ProgramListController);
+HHSInsightApp.controller('ParentSearchController', ParentSearchController);
+HHSInsightApp.controller('ReportController', ReportController);
 //TODO refactor this to it's own controller .js
-demoApp.controller('TheDialogController', function ($scope, $modalInstance, lat, lon, caseNum, searchFactory) {
+HHSInsightApp.controller('TheDialogController', function ($scope, $modalInstance, lat, lon, caseNum, searchFactory) {
     $scope.valuePassed = lat;
     $scope.valuePassed = lon;
     $scope.title = 'Case #' + caseNum;
@@ -21,20 +21,20 @@ demoApp.controller('TheDialogController', function ($scope, $modalInstance, lat,
         $scope.programs = results;
         }, processError);
     });
-demoApp.directive('focusOn', function () {
+HHSInsightApp.directive('focusOn', function () {
     return function (scope, elem, attr) {
         scope.$on(attr.focusOn, function (e) {
             elem[0].focus();
         });
     };
 });
-//demoApp.controller('LoginController', LoginController);
-//demoApp.controller('RegisterController', RegisterController);
-demoApp.factory('searchFactory', searchFactory);
-//demoApp.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
-//demoApp.factory('LoginFactory', LoginFactory);
-//demoApp.factory('RegistrationFactory', RegistrationFactory);
-demoApp.factory('httpInterceptor', function ($q, $rootScope, $log) {
+//HHSInsightApp.controller('LoginController', LoginController);
+//HHSInsightApp.controller('RegisterController', RegisterController);
+HHSInsightApp.factory('searchFactory', searchFactory);
+//HHSInsightApp.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
+//HHSInsightApp.factory('LoginFactory', LoginFactory);
+//HHSInsightApp.factory('RegistrationFactory', RegistrationFactory);
+HHSInsightApp.factory('httpInterceptor', function ($q, $rootScope, $log) {
     var loadingCount = 0;
 
     return {
@@ -120,7 +120,7 @@ var configFunction = function ($routeProvider, $httpProvider) {
 }
 configFunction.$inject = ['$routeProvider', '$httpProvider'];
 
-demoApp.config(configFunction);
+HHSInsightApp.config(configFunction);
 
 function processError(error) {
     if (error.data != null) {

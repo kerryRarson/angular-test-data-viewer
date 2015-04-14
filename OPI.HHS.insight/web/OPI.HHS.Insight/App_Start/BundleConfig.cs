@@ -9,7 +9,7 @@ namespace OPI.HHS.Insight
         public static void RegisterBundles(BundleCollection bundles)
         {
 
-            bundles.Add(new ScriptBundle("~/bundles/demoApp")
+            bundles.Add(new ScriptBundle("~/bundles/HHSInsightApp")
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
                 .IncludeDirectory("~/Scripts/Factories", "*.js")
                 .Include("~/Scripts/app.js"));

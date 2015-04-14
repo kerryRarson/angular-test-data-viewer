@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OPI.HHS.Core.Models;
 
@@ -164,6 +165,24 @@ namespace OPI.HHS.Core
                 rtn = ctx.Database.SqlQuery<Relationship>(sqlQuery).ToList();
             }
             return rtn;
+        }
+        /// <summary>
+        /// Searches the by name on a different thread
+        /// </summary>
+        /// <param name="lastname">The lastname.</param>
+        /// <returns></returns>
+        public IEnumerable<ReferralSearchResult> SearchByNameAsync(string lastname)
+        {
+            var rtn = new List<ReferralSearchResult>();
+            var result = innerSearchByNameAsync(lastname);
+            if (result!=null)
+                foreach (var r in result.Result) { rtn.Add(r); }
+            return rtn;
+        }
+        private async Task<IEnumerable<ReferralSearchResult>> innerSearchByNameAsync(string lastname)
+        {
+            var result = await Task.FromResult<IEnumerable<ReferralSearchResult>>(SearchByName(lastname));
+            return result;
         }
         /// <summary>
         /// Searches by LastName.
