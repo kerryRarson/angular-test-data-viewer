@@ -174,15 +174,18 @@ namespace OPI.HHS.Core
         public IEnumerable<ReferralSearchResult> SearchByNameAsync(string lastname)
         {
             var rtn = new List<ReferralSearchResult>();
-            var result = innerSearchByNameAsync(lastname);
-            if (result!=null)
-                foreach (var r in result.Result) { rtn.Add(r); }
+            var task = innerSearchByNameAsync(lastname);
+            if (task != null)
+            {
+                foreach (var r in task.Result) { rtn.Add(r); }
+            }
+            
             return rtn;
         }
-        private async Task<IEnumerable<ReferralSearchResult>> innerSearchByNameAsync(string lastname)
-        {
-            var result = await Task.FromResult<IEnumerable<ReferralSearchResult>>(SearchByName(lastname));
-            return result;
+        private async Task<IEnumerable<ReferralSearchResult>> innerSearchByNameAsync(string lastname) {
+            var t = Task.Factory.StartNew(() => { return SearchByName(lastname); });
+            //will run on a seperate thread. Calling .Result will force the task to run
+            return t.Result;
         }
         /// <summary>
         /// Searches by LastName.

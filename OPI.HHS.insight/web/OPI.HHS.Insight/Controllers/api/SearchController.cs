@@ -50,7 +50,8 @@ namespace OPI.HHS.Insight.Controllers.api
 		[Route("api/search/byname")]
 		public IEnumerable<ReferralSearchResult> SearchByName(string lastName)
 		{
-			return _svc.SearchByNameAsync(lastName);
+            var rtn = _svc.SearchByNameAsync(lastName);
+            return rtn;
 		}
 
 		[HttpGet]
