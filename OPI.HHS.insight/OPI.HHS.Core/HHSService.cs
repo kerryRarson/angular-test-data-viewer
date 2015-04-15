@@ -173,19 +173,11 @@ namespace OPI.HHS.Core
         /// <returns></returns>
         public IEnumerable<ReferralSearchResult> SearchByNameAsync(string lastname)
         {
-            var rtn = new List<ReferralSearchResult>();
-            var task = innerSearchByNameAsync(lastname);
-            if (task != null)
-            {
-                foreach (var r in task.Result) { rtn.Add(r); }
-            }
-            
+            IEnumerable<ReferralSearchResult> rtn;
+            var task = Task.Run(() => { return SearchByName(lastname); });
+            //will run on a separate thread. Calling .Result will force the task to run
+            rtn = task.Result;
             return rtn;
-        }
-        private async Task<IEnumerable<ReferralSearchResult>> innerSearchByNameAsync(string lastname) {
-            var t = Task.Factory.StartNew(() => { return SearchByName(lastname); });
-            //will run on a seperate thread. Calling .Result will force the task to run
-            return t.Result;
         }
         /// <summary>
         /// Searches by LastName.
@@ -259,32 +251,35 @@ namespace OPI.HHS.Core
         /// <returns></returns>
         public IEnumerable<AddressSearchResult> SearchByCityState(string city, string state)
         {
-            var rtn = new List<AddressSearchResult>();
-            using (var ctx = new DAL.EFContext())
+            IEnumerable<AddressSearchResult> rtn;
+            var dbTask = Task.Run(() =>
             {
-                rtn = ctx.HHS_Addresses
-                     .AsNoTracking()
-                     .Select(a => new AddressSearchResult
-                     {
-                         Case = a.CaseNumber,
-                         Line1 = a.Line1,
-                         Line2 = a.Line2,
-                         City = a.City,
-                         State = a.State,
-                         Zip = a.PostalCode,
-                         //Case = a.CaseNumber,
-                         //Referral = a.Referral,
-                         Lat = a.Location.Latitude.ToString(),
-                         Lon = a.Location.Longitude.ToString(),
-                         FormattedAddress = a.FormattedAddress,
-                         Phone = a.Telephone1
-                     })
-                     .Distinct()
-                     .Where(a => a.City.Contains( city) && a.State == state)
-                     .OrderBy(a => a.Zip).ThenBy(a => a.FormattedAddress).ToList<AddressSearchResult>();
-            }
+                using (var ctx = new DAL.EFContext())
+                {
+                    return ctx.HHS_Addresses
+                         .AsNoTracking()
+                         .Select(a => new AddressSearchResult
+                         {
+                             Case = a.CaseNumber,
+                             Line1 = a.Line1,
+                             Line2 = a.Line2,
+                             City = a.City,
+                             State = a.State,
+                             Zip = a.PostalCode,
+                             //Case = a.CaseNumber,
+                             //Referral = a.Referral,
+                             Lat = a.Location.Latitude.ToString(),
+                             Lon = a.Location.Longitude.ToString(),
+                             FormattedAddress = a.FormattedAddress,
+                             Phone = a.Telephone1
+                         })
+                         .Distinct()
+                         .Where(a => a.City.Contains(city) && a.State == state)
+                         .OrderBy(a => a.Zip).ThenBy(a => a.FormattedAddress).ToList<AddressSearchResult>();
+                }
+            });
+            rtn = dbTask.Result;
             return rtn;
-
          
         }
         /// <summary>
@@ -310,16 +305,20 @@ namespace OPI.HHS.Core
         /// <param name="st">List of cities in the passed in state</param>
         /// <returns></returns>
         public IEnumerable<string> GetCities(string st) {
-            List<string> rtn = new List<string>();
-            using (var ctx = new DAL.EFContext())
+            IEnumerable<string> rtn;
+            var dbTask = Task.Run(() =>
             {
-                rtn =  ctx.HHS_Addresses
-                    .Where(a => a.State == st)
-                    .Select(a => a.City)
-                    .Distinct()
-                    .OrderBy(a => a)
-                    .ToList();
-            }
+                using (var ctx = new DAL.EFContext())
+                {
+                    return ctx.HHS_Addresses
+                        .Where(a => a.State == st)
+                        .Select(a => a.City)
+                        .Distinct()
+                        .OrderBy(a => a)
+                        .ToList();
+                }
+            });
+            rtn = dbTask.Result;
             return rtn;
         }
         /// <summary>
