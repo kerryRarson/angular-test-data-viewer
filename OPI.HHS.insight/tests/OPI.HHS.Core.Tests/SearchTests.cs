@@ -35,9 +35,9 @@ namespace OPI.HHS.Core.Tests
         {
             using (var ctx = new HHSService())
             {
-                var states = ctx.GetStates();
+                var states = ctx.GetStatesAsync();
                 Assert.IsNotNull(states);
-                Assert.IsTrue(states.Count() > 0); 
+                Assert.IsTrue(states.Result.Count() > 0); 
             }
             
 
@@ -97,10 +97,10 @@ namespace OPI.HHS.Core.Tests
             {
                 var searchState = "MT";
                 var searchCity = "Whitefish";
-                var results = ctx.SearchByCityState(searchCity, searchState);
+                var results = ctx.SearchByCityStateAsync(searchCity, searchState);
                 Assert.IsNotNull(results);
-                Assert.IsTrue(results.Count() > 0);
-                Console.WriteLine("{0} addresses returned", results.Count());
+                Assert.IsTrue(results.Result.Count() > 0);
+                Console.WriteLine("{0} addresses returned", results.Result.Count());
             }
         }
 

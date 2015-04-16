@@ -329,13 +329,17 @@ namespace OPI.HHS.Core
         /// Gets the states.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> GetStates()
+        public async Task<IEnumerable<string>> GetStatesAsync()
         {
-            List<string> rtn = new List<string>();
-            using (var ctx = new DAL.EFContext())
-            {
-                rtn = ctx.HHS_Addresses.Select(a => a.State).Distinct().ToList();
-            }
+            IEnumerable<string> rtn = null;
+            var dbTask = Task.Run(() => {
+                using (var ctx = new DAL.EFContext())
+                {
+                    return ctx.HHS_Addresses.Select(a => a.State).Distinct().ToList();
+                }
+            });
+            await dbTask;
+            rtn = dbTask.Result;
             return rtn;
         }
 

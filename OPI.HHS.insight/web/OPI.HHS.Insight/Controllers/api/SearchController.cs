@@ -16,10 +16,10 @@ namespace OPI.HHS.Insight.Controllers.api
 		public SearchController(IHHSService svc) { _svc = svc; }
 		// GET api/<controller>
         [Route("api/search/getstates")]
-		public IEnumerable<string> GetStates()
+		public async Task< IEnumerable<string>> GetStates()
 		{
-			List<string> rtn = new List<string>();
-			rtn = _svc.GetStates().ToList();
+            IEnumerable<string> rtn = null;
+            rtn = await _svc.GetStatesAsync();
 			return rtn;
 		}
 

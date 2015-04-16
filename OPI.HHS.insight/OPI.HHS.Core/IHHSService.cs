@@ -10,7 +10,7 @@ namespace OPI.HHS.Core
 {
     public interface IHHSService
     {
-        IEnumerable<string> GetStates();
+        Task<IEnumerable<string>> GetStatesAsync();
         Task<IEnumerable<string>> GetCitiesAsync(string st);
         string GetCountyByCase(string caseNum);
         Task<IEnumerable<AddressSearchResult>> SearchByCityStateAsync(string st, string city);
