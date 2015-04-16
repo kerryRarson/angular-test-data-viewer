@@ -11,12 +11,12 @@ namespace OPI.HHS.Core
     public interface IHHSService
     {
         IEnumerable<string> GetStates();
-        IEnumerable<string> GetCities(string st);
+        Task<IEnumerable<string>> GetCitiesAsync(string st);
         string GetCountyByCase(string caseNum);
-        IEnumerable<AddressSearchResult> SearchByCityState(string st, string city);
+        Task<IEnumerable<AddressSearchResult>> SearchByCityStateAsync(string st, string city);
         IEnumerable<AddressSearchResult> SearchByCase(int caseNumber);
         IEnumerable<ReferralSearchResult> SearchByName(string lastname);
-        IEnumerable<ReferralSearchResult> SearchByNameAsync(string lastname);
+        Task<IEnumerable<ReferralSearchResult>> SearchByNameAsync(string lastname);
         IEnumerable<Relationship> GetParentsByCase(string caseNum);
         IEnumerable<ReferralSearchResult> GetReferralsByCase(string caseNum);
         IEnumerable<Program> GetProgramsByCase(string caseNum);

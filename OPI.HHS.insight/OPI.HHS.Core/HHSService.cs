@@ -171,13 +171,15 @@ namespace OPI.HHS.Core
         /// </summary>
         /// <param name="lastname">The lastname.</param>
         /// <returns></returns>
-        public IEnumerable<ReferralSearchResult> SearchByNameAsync(string lastname)
+        public async Task< IEnumerable<ReferralSearchResult>> SearchByNameAsync(string lastname)
         {
-            IEnumerable<ReferralSearchResult> rtn;
-            var task = Task.Run(() => { return SearchByName(lastname); });
-            //will run on a separate thread. Calling .Result will force the task to run
-            rtn = task.Result;
-            return rtn;
+            IEnumerable<ReferralSearchResult> rtn = null;
+            var task = Task.Run(() =>
+            {
+                return SearchByName(lastname);
+            });
+            await task;
+            return task.Result;
         }
         /// <summary>
         /// Searches by LastName.
@@ -249,7 +251,7 @@ namespace OPI.HHS.Core
         /// <param name="city">The city.</param>
         /// <param name="state">The state.</param>
         /// <returns></returns>
-        public IEnumerable<AddressSearchResult> SearchByCityState(string city, string state)
+        public async Task<IEnumerable<AddressSearchResult>> SearchByCityStateAsync(string city, string state)
         {
             IEnumerable<AddressSearchResult> rtn;
             var dbTask = Task.Run(() =>
@@ -278,6 +280,7 @@ namespace OPI.HHS.Core
                          .OrderBy(a => a.Zip).ThenBy(a => a.FormattedAddress).ToList<AddressSearchResult>();
                 }
             });
+            await dbTask;
             rtn = dbTask.Result;
             return rtn;
          
@@ -304,7 +307,7 @@ namespace OPI.HHS.Core
         /// </summary>
         /// <param name="st">List of cities in the passed in state</param>
         /// <returns></returns>
-        public IEnumerable<string> GetCities(string st) {
+        public async Task< IEnumerable<string>> GetCitiesAsync(string st) {
             IEnumerable<string> rtn;
             var dbTask = Task.Run(() =>
             {
@@ -318,6 +321,7 @@ namespace OPI.HHS.Core
                         .ToList();
                 }
             });
+            await dbTask;
             rtn = dbTask.Result;
             return rtn;
         }

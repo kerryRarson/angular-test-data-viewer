@@ -47,9 +47,9 @@ namespace OPI.HHS.Core.Tests
         {
             using (var svc = new HHSService())
             {
-                var cities = svc.GetCities("IL");
+                var cities = svc.GetCitiesAsync("IL");
                 Assert.IsNotNull(cities);
-                Assert.IsTrue(cities.Count() > 0);
+                Assert.IsTrue(cities.Result.Count() > 0);
             }
         }
         [TestMethod]
@@ -85,7 +85,7 @@ namespace OPI.HHS.Core.Tests
                 Console.WriteLine("found {0} HHS Referrals", results.Count());
 
                 //test the async method
-                results = ctx.SearchByNameAsync("lars");
+                results = ctx.SearchByNameAsync("lars").Result;
                 Assert.IsNotNull(results);
                 Console.WriteLine("found {0} HHS Referrals from async search", results.Count());
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using OPI.HHS.Core;
 using OPI.HHS.Core.Models;
@@ -24,19 +25,19 @@ namespace OPI.HHS.Insight.Controllers.api
 
 		[HttpGet]
 		[Route("api/search/getcities")]
-		public IEnumerable<string> GetCities(string st)
+		public async Task< IEnumerable<string>> GetCities(string st)
 		{
-			List<string> rtn = new List<string>();
-			rtn = _svc.GetCities(st).ToList();
-			return rtn;
+            IEnumerable<string> rtn = null;
+            rtn = await _svc.GetCitiesAsync(st);
+            return rtn.ToList();
 		}
 
 		[HttpPost]
 		[Route("api/search/bycity")]
-		public IEnumerable<OPI.HHS.Core.Models.AddressSearchResult> SearchByCity(string st, string city)
+		public async Task< IEnumerable<OPI.HHS.Core.Models.AddressSearchResult>> SearchByCity(string st, string city)
 		{
-			var rtn = _svc.SearchByCityState(city, st);
-			return rtn;
+			var rtn = await _svc.SearchByCityStateAsync(city, st);
+            return rtn;
 		}
 
 		[HttpPost]
@@ -48,10 +49,10 @@ namespace OPI.HHS.Insight.Controllers.api
 
 		[HttpPost]
 		[Route("api/search/byname")]
-		public IEnumerable<ReferralSearchResult> SearchByName(string lastName)
+		public async Task< IEnumerable<ReferralSearchResult>> SearchByName(string lastName)
 		{
-            var rtn = _svc.SearchByNameAsync(lastName);
-            return rtn;
+            var rtn = await _svc.SearchByNameAsync(lastName);
+            return rtn.ToList();
 		}
 
 		[HttpGet]
