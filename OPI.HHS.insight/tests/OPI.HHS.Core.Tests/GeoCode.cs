@@ -35,14 +35,14 @@ namespace OPI.HHS.Core.Tests
         [TestMethod]
         public void GeoCodeAddresses()
         {
-            Assert.Inconclusive("Remove this to GeoCode.");
+            //Assert.Inconclusive("Remove this to GeoCode.");
             bool foundStart = true;
             bool overLimit = false;
 
             //var svc = new Demo.Layers.Core.HHSService();
             using (var db = new EFContext())
             {
-                var addrs = db.HHS_Addresses.Where(a => a.Location == null).OrderBy(a=>a.City).ToList();
+                var addrs = db.HHS_Addresses.Where(a => a.FormattedAddress == null).OrderBy(a=>a.City).ToList();
                 foreach (var a in addrs)
                 {
                     //if (!foundStart && a.City.ToUpper().Equals(_startCity)) { foundStart = true; }
@@ -80,6 +80,8 @@ namespace OPI.HHS.Core.Tests
                                 {
                                     if (xdoc.Element("GeocodeResponse").Element("status").Value == "OVER_QUERY_LIMIT") { overLimit = true; Assert.Fail("Over quota limit " + DateTime.Now.ToString()); }
                                     System.Diagnostics.Debug.WriteLine(string.Format("NO RESULT FOR - {0}", a.pk_ID));
+                                    a.FormattedAddress = "NO RESULT";
+                                    db.SaveChanges();
                                 }
                             }
                             catch (Exception err)

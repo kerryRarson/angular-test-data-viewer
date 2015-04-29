@@ -33,7 +33,7 @@
         //raise the event to set focus on the city text box
         $scope.$broadcast('cityFocus');
     };
-    function getStates() {
+    function initStates() {
         $scope.searching = true;
         searchFactory.getStates().then(function (states) {
             $scope.searchState = 'MT';//default to MT
@@ -62,7 +62,7 @@
     };
     function init() {
         //populate the state drop down
-        getStates();
+        initStates();
         getCities($scope.searchState);
     }
     init();
